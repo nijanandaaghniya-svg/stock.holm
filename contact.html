@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STOCK.HOLM - Contact Us</title>
+    <!-- Font Elegan Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background-color: #fcf9f2; color: #4a3b32; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* HEADER & BANNER */
+        .banner-container {
+            position: relative;
+            text-align: center;
+            color: #ffffff;
+            height: 300px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            overflow: hidden;
+            background-color: #8b6d5c;
+        }
+
+        .banner-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            z-index: 0;
+            filter: brightness(0.65);
+        }
+
+        .banner-text {
+            position: relative;
+            z-index: 1; 
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+            padding: 0 20px;
+        }
+
+        .banner-text h1 { font-size: 3rem; letter-spacing: 5px; margin-bottom: 8px; }
+        .banner-text p { font-size: 1.15rem; font-style: italic; font-family: 'Playfair Display', serif; }
+
+        /* TOP BAR */
+        .top-bar {
+            background-color: #4a3b32;
+            padding: 8px 30px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logout-btn {
+            color: #f7f3e9;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 5px 14px;
+            border: 1px solid #d1bfae;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            background-color: #d1bfae;
+            color: #4a3b32;
+        }
+
+        /* NAVIGASI */
+        nav { background-color: #634b3e; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; }
+        nav a { color: #f7f3e9; text-decoration: none; padding: 16px 22px; font-size: 0.95rem; font-weight: 500; transition: 0.3s; }
+        nav a:hover, nav a.active { background-color: #d1bfae; color: #4a3b32; }
+
+        .language-dropdown { padding: 12px 20px; }
+        .language-dropdown select {
+            background-color: #d1bfae; color: #4a3b32; border: 1px solid #4a3b32;
+            padding: 6px 12px; border-radius: 4px; font-family: 'Poppins', sans-serif;
+            font-weight: 500; cursor: pointer; outline: none;
+        }
+
+        /* KONTEN */
+        .content-area { background-color: #eaddd3; padding: 40px 20px; min-height: 600px; text-align: center; }
+        .content-box {
+            background-color: #ffffff; border: 2px solid #a68a7a; border-radius: 8px;
+            max-width: 800px; margin: 0 auto; padding: 35px 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            text-align: left;
+        }
+        .content-box h3 { font-size: 1.9rem; margin-bottom: 15px; border-bottom: 1px solid #eaddd3; padding-bottom: 12px; text-align: center; }
+        .content-box p.intro-text { text-align: center; margin-bottom: 25px; color: #634b3e; }
+
+        /* FORM KONTAK */
+        .contact-form { display: flex; flex-direction: column; gap: 20px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group label { font-size: 0.9rem; font-weight: 500; color: #4a3b32; }
+        .form-group input, .form-group textarea {
+            padding: 12px; border: 1px solid #a68a7a; border-radius: 4px; background-color: #fcf9f2;
+            font-family: 'Poppins', sans-serif; font-size: 0.95rem; color: #4a3b32; outline: none; transition: 0.3s;
+        }
+        .form-group input:focus, .form-group textarea:focus { border-color: #634b3e; background-color: #fff; }
+        .form-group textarea { resize: vertical; height: 130px; }
+
+        .submit-btn {
+            background-color: #634b3e; color: #f7f3e9; border: none; padding: 12px; border-radius: 4px;
+            font-family: 'Poppins', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; transition: 0.3s;
+            text-align: center; margin-top: 10px;
+        }
+        .submit-btn:hover { background-color: #d1bfae; color: #4a3b32; }
+
+        /* INFO KONTAK TAMBAHAN */
+        .contact-info { margin-top: 35px; border-top: 1px solid #eaddd3; padding-top: 20px; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 15px; text-align: center; }
+        .info-item h4 { font-size: 1rem; font-family: 'Playfair Display', serif; margin-bottom: 5px; color: #634b3e; }
+        .info-item p { font-size: 0.9rem; color: #4a3b32; }
+
+        footer { background-color: #4a3b32; color: #eaddd3; text-align: center; padding: 22px; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER BANNER -->
+    <header class="banner-container">
+        <img src="download.JPG" alt="STOCK.HOLM Banner" class="banner-img">
+        <div class="banner-text">
+            <h1>STOCK.HOLM</h1>
+            <p data-i18n="subtitle">We'd Love to Hear From You</p>
+        </div>
+    </header>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <a href="login.html" class="logout-btn" data-i18n="logout">Logout</a>
+    </div>
+
+    <!-- NAVIGASI -->
+    <nav>
+        <a href="index.html" data-i18n="nav_product">Product</a>
+        <a href="news.html" data-i18n="nav_news">News</a>
+        <a href="new-released.html" data-i18n="nav_new">New Released</a>
+        <a href="contact.html" class="active" data-i18n="nav_contact">Contact</a>
+        <a href="profile.html" data-i18n="nav_profile">Profile</a>
+        <a href="credit.html" data-i18n="nav_credit">Credit</a>
+        
+        <div class="language-dropdown">
+            <select id="lang-select" onchange="changeLanguage(this.value)">
+                <option value="en">English</option>
+                <option value="id">Indonesia</option>
+                <option value="fr">Français</option>
+                <option value="pt">Português</option>
+                <option value="de">Deutsch</option>
+            </select>
+        </div>
+    </nav>
+
+    <!-- AREA KONTEN -->
+    <main class="content-area">
+        <h2 data-i18n="content_title">Get in Touch</h2>
+        
+        <div class="content-box">
+            <h3 data-i18n="welcome">Contact Us</h3>
+            <p class="intro-text" data-i18n="desc">Have questions about our collections, orders, or styling advice? Send us a message below.</p>
+            
+            <form class="contact-form" onsubmit="event.preventDefault(); alert('Message sent successfully!');">
+                <div class="form-group">
+                    <label for="name" data-i18n="label_name">Your Name</label>
+                    <input type="text" id="name" required placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label for="email" data-i18n="label_email">Email Address</label>
+                    <input type="email" id="email" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="message" data-i18n="label_message">Message</label>
+                    <textarea id="message" required placeholder="Write your message here..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn" data-i18n="btn_submit">Send Message</button>
+            </form>
+
+            <div class="contact-info">
+                <div class="info-item">
+                    <h4 data-i18n="info_email_title">Email Us</h4>
+                    <p>support@stockholm.com</p>
+                </div>
+                <div class="info-item">
+                    <h4 data-i18n="info_phone_title">Call Us</h4>
+                    <p>+46 8 123 4567</p>
+                </div>
+                <div class="info-item">
+                    <h4 data-i18n="info_visit_title">Studio</h4>
+                    <p> Rutherfreunded 11 Sweden, STOCK.HOLM</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p data-i18n="footer">&copy; 2026 STOCK.HOLM. Designed with elegance.</p>
+    </footer>
+
+    <!-- JAVASCRIPT GANTI BAHASA -->
+    <script>
+        const translations = {
+            en: {
+                subtitle: "We'd Love to Hear From You",
+                logout: "Logout",
+                nav_product: "Product", nav_news: "News", nav_new: "New Released", nav_contact: "Contact", nav_profile: "Profile", nav_credit: "Credit",
+                content_title: "Get in Touch", welcome: "Contact Us", desc: "Have questions about our collections, orders, or styling advice? Send us a message below.",
+                label_name: "Your Name", label_email: "Email Address", label_message: "Message", btn_submit: "Send Message",
+                info_email_title: "Email Us", info_phone_title: "Call Us", info_visit_title: "Studio",
+                footer: "© 2026 STOCK.HOLM. Designed with elegance."
+            },
+            id: {
+                subtitle: "Kami Ingin Mendengar Dari Anda",
+                logout: "Keluar",
+                nav_product: "Produk", nav_news: "Berita", nav_new: "Rilis Terbaru", nav_contact: "Kontak", nav_profile: "Profil", nav_credit: "Kredit",
+                content_title: "Hubungi Kami", welcome: "Hubungi Kami", desc: "Punya pertanyaan tentang koleksi, pesanan, atau saran gaya kami? Kirimkan pesan di bawah ini.",
+                label_name: "Nama Anda", label_email: "Alamat Email", label_message: "Pesan", btn_submit: "Kirim Pesan",
+                info_email_title: "Email Kami", info_phone_title: "Telepon Kami", info_visit_title: "Studio",
+                footer: "© 2026 STOCK.HOLM. Dirancang dengan elegan."
+            },
+            fr: {
+                subtitle: "Nousaimerionsavoirde vos nouvelles",
+                logout: "Déconnexion",
+                nav_product: "Produits", nav_news: "Actualités", nav_new: "Nouveautés", nav_contact: "Contact", nav_profile: "Profil", nav_credit: "Crédits",
+                content_title: "Contactez-nous", welcome: "Contact", desc: "Des questions sur nos collections, nos commandes ou nos conseils de style ? Envoyez-nous un message ci-dessous.",
+                label_name: "Votre Nom", label_email: "Adresse Email", label_message: "Message", btn_submit: "Envoyer le Message",
+                info_email_title: "Écrivez-nous", info_phone_title: "Appelez-nous", info_visit_title: "Studio",
+                footer: "© 2026 STOCK.HOLM. Conçu avec élégance."
+            },
+            pt: {
+                subtitle: "Adoraríamos Ouvir de Você",
+                logout: "Sair",
+                nav_product: "Produtos", nav_news: "Notícias", nav_new: "Lançamentos", nav_contact: "Contato", nav_profile: "Perfil", nav_credit: "Créditos",
+                content_title: "Entre em Contato", welcome: "Fale Conosco", desc: "Tem dúvidas sobre nossas coleções, pedidos ou dicas de estilo? Envie-nos uma mensagem abaixo.",
+                label_name: "Seu Nome", label_email: "Endereço de E-mail", label_message: "Mensagem", btn_submit: "Enviar Mensagem",
+                info_email_title: "Envie um E-mail", info_phone_title: "Ligue para Nós", info_visit_title: "Estúdio",
+                footer: "© 2026 STOCK.HOLM. Projetado com elegância."
+            },
+            de: {
+                subtitle: "Wir würden uns freuen, von Ihnen zu hören",
+                logout: "Abmelden",
+                nav_product: "Produkte", nav_news: "Neuigkeiten", nav_new: "Neuerscheinungen", nav_contact: "Kontakt", nav_profile: "Profil", nav_credit: "Impressum",
+                content_title: "In Kontakt treten", welcome: "Kontaktieren Sie uns", desc: "Haben Sie Fragen zu unseren Kollektionen, Bestellungen oder Styling-Tipps? Senden Sie uns unten eine Nachricht.",
+                label_name: "Ihr Name", label_email: "E-Mail-Adresse", label_message: "Nachricht", btn_submit: "Nachricht Senden",
+                info_email_title: "E-Mail senden", info_phone_title: "Anrufen", info_visit_title: "Studio",
+                footer: "© 2026 STOCK.HOLM. Mit Eleganz entworfen."
+            }
+        };
+
+        function changeLanguage(lang) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.innerHTML = translations[lang][key];
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

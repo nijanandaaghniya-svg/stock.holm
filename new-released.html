@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STOCK.HOLM - New Released</title>
+    <!-- Font Elegan Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background-color: #fcf9f2; color: #4a3b32; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* HEADER & BANNER */
+        .banner-container {
+            position: relative;
+            text-align: center;
+            color: #ffffff;
+            height: 300px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            overflow: hidden;
+            background-color: #8b6d5c;
+        }
+
+        .banner-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            z-index: 0;
+            filter: brightness(0.65);
+        }
+
+        .banner-text {
+            position: relative;
+            z-index: 1; 
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+            padding: 0 20px;
+        }
+
+        .banner-text h1 { font-size: 3rem; letter-spacing: 5px; margin-bottom: 8px; }
+        .banner-text p { font-size: 1.15rem; font-style: italic; font-family: 'Playfair Display', serif; }
+
+        /* TOP BAR */
+        .top-bar {
+            background-color: #4a3b32;
+            padding: 8px 30px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logout-btn {
+            color: #f7f3e9;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 5px 14px;
+            border: 1px solid #d1bfae;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            background-color: #d1bfae;
+            color: #4a3b32;
+        }
+
+        /* NAVIGASI */
+        nav { background-color: #634b3e; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; }
+        nav a { color: #f7f3e9; text-decoration: none; padding: 16px 22px; font-size: 0.95rem; font-weight: 500; transition: 0.3s; }
+        nav a:hover, nav a.active { background-color: #d1bfae; color: #4a3b32; }
+
+        .language-dropdown { padding: 12px 20px; }
+        .language-dropdown select {
+            background-color: #d1bfae; color: #4a3b32; border: 1px solid #4a3b32;
+            padding: 6px 12px; border-radius: 4px; font-family: 'Poppins', sans-serif;
+            font-weight: 500; cursor: pointer; outline: none;
+        }
+
+        /* KONTEN */
+        .content-area { background-color: #eaddd3; padding: 40px 20px; min-height: 600px; text-align: center; }
+        .content-box {
+            background-color: #ffffff; border: 2px solid #a68a7a; border-radius: 8px;
+            max-width: 1200px; margin: 0 auto; padding: 35px 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .content-box h3 { font-size: 1.9rem; margin-bottom: 10px; border-bottom: 1px solid #eaddd3; padding-bottom: 12px; }
+
+        /* GRID PRODUK */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px; margin-top: 30px; }
+        .product-card { 
+            background-color: #fcf9f2; 
+            border: 1px solid #eaddd3; 
+            border-radius: 6px; 
+            padding: 15px; 
+            text-align: center; 
+            transition: 0.3s; 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(100, 75, 62, 0.2); }
+        
+        /* Label "New" Badge */
+        .badge-new {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #8b6d5c;
+            color: #fff;
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-weight: 600;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        .product-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .product-image { 
+            width: 100%; 
+            height: 220px; 
+            object-fit: cover; 
+            border-radius: 4px; 
+            margin-bottom: 10px; 
+            background-color: #d1bfae;
+            display: block; 
+            transition: opacity 0.2s;
+        }
+        .product-link:hover .product-image {
+            opacity: 0.9;
+        }
+
+        /* STYLE SOURCE PINTEREST */
+        .photo-source {
+            font-size: 0.75rem;
+            color: #8b6d5c;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+        .photo-source a {
+            color: #634b3e;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        .photo-source a:hover {
+            color: #4a3b32;
+        }
+
+        .product-title { font-size: 1.1rem; margin-bottom: 6px; font-family: 'Playfair Display', serif; }
+        .product-price { color: #8b6d5c; font-weight: bold; margin-bottom: 12px; }
+
+        .btn-group-card {
+            display: flex;
+            gap: 8px;
+        }
+
+        .cart-add-btn {
+            background-color: #fcf9f2;
+            color: #8b6d5c;
+            border: 1px solid #d1bfae;
+            padding: 8px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            flex: 1;
+        }
+
+        .cart-add-btn:hover {
+            background-color: #eaddd3;
+            color: #4a3b32;
+        }
+
+        .buy-btn {
+            display: inline-block;
+            background-color: #634b3e;
+            color: #f7f3e9;
+            text-decoration: none;
+            padding: 8px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: 0.3s ease;
+            text-align: center;
+            flex: 1;
+        }
+
+        .buy-btn:hover {
+            background-color: #d1bfae;
+            color: #4a3b32;
+        }
+
+        footer { background-color: #4a3b32; color: #eaddd3; text-align: center; padding: 22px; font-size: 0.9rem; }
+
+        /* TOAST NOTIFIKASI */
+        .toast-notif {
+            position: fixed;
+            top: 20px;
+            right: -350px;
+            background-color: #4a3b32;
+            color: #f7f3e9;
+            padding: 12px 20px;
+            border-radius: 6px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 99999;
+            transition: right 0.4s ease-in-out;
+            font-size: 0.88rem;
+        }
+        .toast-notif.show { right: 20px; }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER BANNER -->
+    <header class="banner-container">
+        <img src="download.JPG" alt="STOCK.HOLM Banner" class="banner-img">
+        <div class="banner-text">
+            <h1>STOCK.HOLM</h1>
+            <p data-i18n="subtitle">Fresh Additions to Your Wardrobe</p>
+        </div>
+    </header>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <a href="login.html" class="logout-btn" data-i18n="logout">Logout</a>
+    </div>
+
+    <!-- NAVIGASI -->
+    <nav>
+        <a href="index.html" data-i18n="nav_product">Product</a>
+        <a href="news.html" data-i18n="nav_news">News</a>
+        <a href="new-released.html" class="active" data-i18n="nav_new">New Released</a>
+        <a href="contact.html" data-i18n="nav_contact">Contact</a>
+        <a href="profile.html" data-i18n="nav_profile">Profile</a>
+        <a href="credit.html" data-i18n="nav_credit">Credit</a>
+        
+        <div class="language-dropdown">
+            <select id="lang-select" onchange="changeLanguage(this.value)">
+                <option value="en">English</option>
+                <option value="id">Indonesia</option>
+                <option value="fr">Français</option>
+                <option value="pt">Português</option>
+                <option value="de">Deutsch</option>
+            </select>
+        </div>
+    </nav>
+
+    <!-- AREA KONTEN -->
+    <main class="content-area">
+        <h2 data-i18n="content_title">New Released Collection</h2>
+        
+        <div class="content-box">
+            <h3 data-i18n="welcome">Latest Arrivals</h3>
+            <p data-i18n="desc">Explore our newest pieces straight from the studio, designed for timeless sophistication.</p>
+            
+            <div class="product-grid">
+                <!-- Produk Baru 1 -->
+                <div class="product-card">
+                    <span class="badge-new" data-i18n="badge">New</span>
+                    <div>
+                        <a href="checkout11.html" class="product-link">
+                            <img src="product11.JPG" alt="Cashmere Turtleneck" class="product-image">
+                            <div class="photo-source">Source: <a href="https://www.pinterest.com" target="_blank">Pinterest</a></div>
+                            <div class="product-title" data-i18n="p1">Cashmere Turtleneck</div>
+                        </a>
+                        <div class="product-price">$95.00</div>
+                    </div>
+                    <div class="btn-group-card">
+                        <button class="cart-add-btn" onclick="addToGlobalCart('Cashmere Turtleneck', 95.00, 'product11.JPG', 'checkout11.html')">+ Cart</button>
+                        <a href="checkout11.html" class="buy-btn" data-i18n="buy_now">View</a>
+                    </div>
+                </div>
+
+                <!-- Produk Baru 2 -->
+                <div class="product-card">
+                    <span class="badge-new" data-i18n="badge">New</span>
+                    <div>
+                        <a href="checkout12.html" class="product-link">
+                            <img src="product12.JPG" alt="Structured Wool Coat" class="product-image">
+                            <div class="photo-source">Source: <a href="https://www.pinterest.com" target="_blank">Pinterest</a></div>
+                            <div class="product-title" data-i18n="p2">Structured Wool Coat</div>
+                        </a>
+                        <div class="product-price">$145.00</div>
+                    </div>
+                    <div class="btn-group-card">
+                        <button class="cart-add-btn" onclick="addToGlobalCart('Structured Wool Coat', 145.00, 'product12.JPG', 'checkout12.html')">+ Cart</button>
+                        <a href="checkout12.html" class="buy-btn" data-i18n="buy_now">View</a>
+                    </div>
+                </div>
+
+                <!-- Produk Baru 3 -->
+                <div class="product-card">
+                    <span class="badge-new" data-i18n="badge">New</span>
+                    <div>
+                        <a href="checkout13.html" class="product-link">
+                            <img src="product13.JPG" alt="Silk Midi Skirt" class="product-image">
+                            <div class="photo-source">Source: <a href="https://www.pinterest.com" target="_blank">Pinterest</a></div>
+                            <div class="product-title" data-i18n="p3">Silk Midi Skirt</div>
+                        </a>
+                        <div class="product-price">$70.00</div>
+                    </div>
+                    <div class="btn-group-card">
+                        <button class="cart-add-btn" onclick="addToGlobalCart('Silk Midi Skirt', 70.00, 'product13.JPG', 'checkout13.html')">+ Cart</button>
+                        <a href="checkout13.html" class="buy-btn" data-i18n="buy_now">View</a>
+                    </div>
+                </div>
+
+                <!-- Produk Baru 4 -->
+                <div class="product-card">
+                    <span class="badge-new" data-i18n="badge">New</span>
+                    <div>
+                        <a href="checkout14.html" class="product-link">
+                            <img src="product14.JPG" alt="Tailored Vest" class="product-image">
+                            <div class="photo-source">Source: <a href="https://www.pinterest.com" target="_blank">Pinterest</a></div>
+                            <div class="product-title" data-i18n="p4">Tailored Vest</div>
+                        </a>
+                        <div class="product-price">$60.00</div>
+                    </div>
+                    <div class="btn-group-card">
+                        <button class="cart-add-btn" onclick="addToGlobalCart('Tailored Vest', 60.00, 'product14.JPG', 'checkout14.html')">+ Cart</button>
+                        <a href="checkout14.html" class="buy-btn" data-i18n="buy_now">View</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p data-i18n="footer">&copy; 2026 STOCK.HOLM. Designed with elegance.</p>
+    </footer>
+
+    <!-- TOAST NOTIFIKASI -->
+    <div class="toast-notif" id="toastNotif">
+        ✓ Added to your Profile Cart!
+    </div>
+
+    <!-- JAVASCRIPT GANTI BAHASA & SINKRONISASI KERANJANG -->
+    <script>
+        const translations = {
+            en: {
+                subtitle: "Fresh Additions to Your Wardrobe",
+                logout: "Logout",
+                nav_product: "Product", nav_news: "News", nav_new: "New Released", nav_contact: "Contact", nav_profile: "Profile", nav_credit: "Credit",
+                content_title: "New Released Collection", welcome: "Latest Arrivals", desc: "Explore our newest pieces straight from the studio, designed for timeless sophistication.",
+                badge: "New",
+                p1: "Cashmere Turtleneck", p2: "Structured Wool Coat", p3: "Silk Midi Skirt", p4: "Tailored Vest",
+                buy_now: "Buy Now",
+                footer: "© 2026 STOCK.HOLM. Designed with elegance."
+            },
+            id: {
+                subtitle: "Koleksi Terbaru untuk Lemari Pakaian Anda",
+                logout: "Keluar",
+                nav_product: "Produk", nav_news: "Berita", nav_new: "Rilis Terbaru", nav_contact: "Kontak", nav_profile: "Profil", nav_credit: "Kredit",
+                content_title: "Koleksi Rilis Terbaru", welcome: "Kedatangan Terbaru", desc: "Jelajahi pakaian terbaru kami langsung dari studio, dirancang untuk keanggunan abadi.",
+                badge: "Baru",
+                p1: "Turtle Neck Kasmir", p2: "Mantel Wol Terstruktur", p3: "Rok Midi Sutra", p4: "Rompi Jahit",
+                buy_now: "Beli Sekarang",
+                footer: "© 2026 STOCK.HOLM. Dirancang dengan elegan."
+            },
+            fr: {
+                subtitle: "Nouveautés pour Votre Garde-robe",
+                logout: "Déconnexion",
+                nav_product: "Produits", nav_news: "Actualités", nav_new: "Nouveautés", nav_contact: "Contact", nav_profile: "Profil", nav_credit: "Crédits",
+                content_title: "Collection Nouveautés", welcome: "Dernières Arrivées", desc: "Découvrez nos dernières pièces tout droit sorties de l'atelier, conçues pour une élégance intemporelle.",
+                badge: "Nouveau",
+                p1: "Col Roulé en Cachemire", p2: "Manteau en Laine Structuré", p3: "Jupe Midi en Soie", p4: "Gilet Tailleur",
+                buy_now: "Acheter",
+                footer: "© 2026 STOCK.HOLM. Conçu avec élégance."
+            },
+            pt: {
+                subtitle: "Novas Adições ao Seu Guarda-Roupa",
+                logout: "Sair",
+                nav_product: "Produtos", nav_news: "Notícias", nav_new: "Lançamentos", nav_contact: "Contato", nav_profile: "Perfil", nav_credit: "Créditos",
+                content_title: "Coleção de Lançamentos", welcome: "Últimas Chegadas", desc: "Explore nossas peças mais recentes direto do estúdio, projetadas para sofisticação atemporal.",
+                badge: "Novo",
+                p1: "Gola Alta de Cashmere", p2: "Casaco de Lã Estruturado", p3: "Saia Midi de Seda", p4: "Colete Alfaiataria",
+                buy_now: "Comprar Agora",
+                footer: "© 2026 STOCK.HOLM. Projetado com elegância."
+            },
+            de: {
+                subtitle: "Frische Ergänzungen für Ihre Garderobe",
+                logout: "Abmelden",
+                nav_product: "Produkte", nav_news: "Neuigkeiten", nav_new: "Neuerscheinungen", nav_contact: "Kontakt", nav_profile: "Profil", nav_credit: "Impressum",
+                content_title: "Neuerscheinungen Kollektion", welcome: "Neueste Ankunft", desc: "Entdecken Sie unsere neuesten Stücke direkt aus dem Studio, entworfen für zeitlose Eleganz.",
+                badge: "Neu",
+                p1: "Kaschmir-Rollkragenpullover", p2: "Strukturierter Wollmantel", p3: "Seiden-Midirock", p4: "Maßgeschneiderte Weste",
+                buy_now: "Jetzt Kaufen",
+                footer: "© 2026 STOCK.HOLM. Mit Eleganz entworfen."
+            }
+        };
+
+        function changeLanguage(lang) {
+            localStorage.setItem('stockholm_lang', lang);
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.innerHTML = translations[lang][key];
+                }
+            });
+        }
+
+        function addToGlobalCart(name, price, image, checkoutUrl, size = 'M') {
+            let currentCart = [];
+            try {
+                currentCart = JSON.parse(localStorage.getItem('stockholm_cart')) || [];
+            } catch (e) {
+                currentCart = [];
+            }
+
+            currentCart.push({
+                name: name,
+                price: price,
+                image: image,
+                size: size,
+                checkoutUrl: checkoutUrl
+            });
+
+            localStorage.setItem('stockholm_cart', JSON.stringify(currentCart));
+
+            const toast = document.getElementById('toastNotif');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('stockholm_lang') || 'en';
+            document.getElementById('lang-select').value = savedLang;
+            changeLanguage(savedLang);
+        });
+    </script>
+
+</body>
+</html>

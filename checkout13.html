@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Silk Midi Skirt | STOCK.HOLM</title>
+    <!-- Font Elegan Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background-color: #fcf9f2; 
+            color: #4a3b32; 
+            position: relative; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: space-between; 
+        }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* TOP BAR */
+        .top-bar {
+            background-color: #4a3b32;
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #f7f3e9;
+            position: relative;
+            z-index: 100;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .top-bar h1 {
+            font-size: 1.6rem;
+            letter-spacing: 2px;
+        }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .language-dropdown select {
+            background-color: #d1bfae;
+            color: #4a3b32;
+            border: 1px solid #4a3b32;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+            font-size: 0.9rem;
+            height: 40px;
+            transition: background-color 0.2s;
+        }
+
+        .language-dropdown select:hover {
+            background-color: #eaddd3;
+        }
+
+        .back-link {
+            color: #f7f3e9;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1.5px solid #d1bfae;
+            padding: 8px 18px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .back-link:hover {
+            background-color: #d1bfae;
+            color: #4a3b32;
+            transform: translateY(-1px);
+        }
+
+        .back-link:active {
+            transform: translateY(1px);
+        }
+
+        /* MAIN CHECKOUT CONTAINER */
+        .checkout-container {
+            max-width: 900px;
+            margin: 30px auto;
+            background-color: #ffffff;
+            border: 2px solid #a68a7a;
+            border-radius: 10px;
+            padding: 35px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 35px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+            width: 90%;
+        }
+
+        @media (max-width: 768px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+                padding: 20px;
+                margin: 20px auto;
+            }
+        }
+
+        .product-preview {
+            position: relative;
+        }
+
+        .product-preview img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            border-radius: 6px;
+            background-color: #d1bfae;
+        }
+
+        .photo-source {
+            font-size: 0.8rem;
+            color: #8b6d5c;
+            margin-top: 8px;
+            font-style: italic;
+        }
+        .photo-source a {
+            color: #634b3e;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        .photo-source a:hover {
+            color: #4a3b32;
+        }
+
+        /* FAVOURITE (LOVE) BUTTON ON IMAGE */
+        .fav-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 1px solid #d1bfae;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        .fav-btn:hover {
+            transform: scale(1.1);
+            background-color: #ffffff;
+        }
+
+        .fav-btn svg {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: #8b6d5c;
+            stroke-width: 2;
+            transition: fill 0.3s, stroke 0.3s;
+        }
+
+        .fav-btn.active svg {
+            fill: #c0392b;
+            stroke: #c0392b;
+        }
+
+        .product-details h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #4a3b32;
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            color: #8b6d5c;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .product-desc {
+            font-size: 0.9rem;
+            color: #634b3e;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* SIZE SELECTOR STYLES */
+        .size-selection {
+            margin-bottom: 25px;
+        }
+
+        .size-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #4a3b32;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .selected-size-display {
+            color: #8b6d5c;
+            font-weight: 500;
+        }
+
+        .size-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .size-btn {
+            width: 44px;
+            height: 44px;
+            background-color: #fcf9f2;
+            border: 1.5px solid #d1bfae;
+            border-radius: 6px;
+            color: #4a3b32;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .size-btn:hover {
+            border-color: #8b6d5c;
+            background-color: #eaddd3;
+        }
+
+        .size-btn.active {
+            background-color: #634b3e;
+            color: #f7f3e9;
+            border-color: #634b3e;
+            box-shadow: 0 3px 8px rgba(99, 75, 62, 0.3);
+        }
+
+        .action-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-cart {
+            flex: 1;
+            background-color: #fcf9f2;
+            color: #8b6d5c;
+            border: 1px solid #d1bfae;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-cart:hover {
+            background-color: #eaddd3;
+            color: #4a3b32;
+        }
+
+        .btn-buynow {
+            flex: 1;
+            background-color: #634b3e;
+            color: #f7f3e9;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-buynow:hover {
+            background-color: #8b6d5c;
+        }
+
+        footer { background-color: #4a3b32; color: #eaddd3; text-align: center; padding: 20px; font-size: 0.9rem; }
+
+        /* ================= NOTIFIKASI TOAST ================= */
+        .toast-container {
+            position: fixed;
+            top: 75px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 99999;
+        }
+
+        .toast-notif {
+            background-color: #4a3b32;
+            color: #f7f3e9;
+            padding: 12px 20px;
+            border-radius: 6px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            font-size: 0.88rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            transform: translateX(100px);
+            transition: all 0.3s ease-in-out;
+            pointer-events: none;
+        }
+
+        .toast-notif.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ================= POP-UP PAYMENT (MODAL) ================= */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(74, 59, 50, 0.5);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background-color: #ffffff;
+            border: 2px solid #a68a7a;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 420px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .modal-box h3 {
+            font-size: 1.6rem;
+            color: #4a3b32;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .modal-box p {
+            font-size: 0.85rem;
+            color: #8b6d5c;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .payment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .payment-card {
+            border: 1px solid #d1bfae;
+            border-radius: 8px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: 0.3s;
+            background-color: #fcf9f2;
+        }
+
+        .payment-card:hover {
+            border-color: #634b3e;
+            background-color: #eaddd3;
+        }
+
+        .payment-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .payment-icon-box {
+            width: 42px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff;
+            border: 1px solid #d1bfae;
+            border-radius: 4px;
+        }
+
+        .payment-info span {
+            font-weight: 600;
+            font-size: 0.92rem;
+            color: #4a3b32;
+        }
+
+        .modal-close {
+            width: 100%;
+            background-color: #8b6d5c;
+            color: #f7f3e9;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .modal-close:hover {
+            background-color: #634b3e;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <h1>STOCK.HOLM</h1>
+        <div class="top-bar-right">
+            <div class="language-dropdown">
+                <select id="lang-select" onchange="changeLanguage(this.value)">
+                    <option value="en">English</option>
+                    <option value="id">Indonesia</option>
+                    <option value="fr">Français</option>
+                    <option value="pt">Português</option>
+                    <option value="de">Deutsch</option>
+                </select>
+            </div>
+            <a href="new-released.html" class="back-link" id="backLink" data-i18n="back_to_store">Back to Store</a>
+        </div>
+    </div>
+
+    <!-- MAIN CHECKOUT CONTAINER -->
+    <main class="checkout-container">
+        <div class="product-preview">
+            <img src="product13.JPG" alt="Silk Midi Skirt">
+            <div class="photo-source">Source: <a href="https://www.pinterest.com" target="_blank">Pinterest</a></div>
+            <!-- LOVE / FAVORITES BUTTON -->
+            <button type="button" class="fav-btn" id="favBtn" onclick="toggleFavorite()">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="product-details">
+            <h2 data-i18n="p13_title">Silk Midi Skirt</h2>
+            <div class="product-price">$70.00</div>
+            <p class="product-desc" data-i18n="p13_desc">
+                An exquisitely smooth silk midi skirt designed with a graceful drape and effortless fluid movement. Perfect for creating refined, understated everyday elegance.
+            </p>
+
+            <!-- CHOOSE SIZE SECTION -->
+            <div class="size-selection">
+                <div class="size-title">
+                    <span data-i18n="choose_size">Choose Size:</span>
+                    <span class="selected-size-display" id="selectedSizeDisplay">M</span>
+                </div>
+                <div class="size-options">
+                    <button type="button" class="size-btn" onclick="selectSize(this, 'XS')">XS</button>
+                    <button type="button" class="size-btn" onclick="selectSize(this, 'S')">S</button>
+                    <button type="button" class="size-btn active" onclick="selectSize(this, 'M')">M</button>
+                    <button type="button" class="size-btn" onclick="selectSize(this, 'L')">L</button>
+                    <button type="button" class="size-btn" onclick="selectSize(this, 'XL')">XL</button>
+                </div>
+            </div>
+
+            <div class="action-group">
+                <button type="button" class="btn-cart" onclick="showToast('cart')" data-i18n="add_to_cart">Add to Cart</button>
+                <button type="button" class="btn-buynow" onclick="openPaymentModal()" data-i18n="buy_now">Buy Now</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p data-i18n="footer">&copy; 2026 STOCK.HOLM. Designed with elegance.</p>
+    </footer>
+
+    <!-- CONTAINER NOTIFIKASI TOAST -->
+    <div class="toast-container">
+        <div class="toast-notif" id="toastCart">
+            ✓ <span id="cartNotifText">Added to cart successfully! (Size: M)</span>
+        </div>
+        <div class="toast-notif" id="toastFav">
+            ♥ <span id="favNotifText">Added to favorites!</span>
+        </div>
+    </div>
+
+    <!-- POP-UP PAYMENT MODAL -->
+    <div class="modal-overlay" id="paymentModal">
+        <div class="modal-box">
+            <h3 data-i18n="pay_title">Select Payment Method</h3>
+            <p data-i18n="pay_sub">Choose your preferred secure payment gateway to complete your order.</p>
+            
+            <div class="payment-options">
+                <!-- PayPal -->
+                <div class="payment-card" onclick="processPayment('PayPal')">
+                    <div class="payment-info">
+                        <div class="payment-icon-box">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#003087">
+                                <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.72a.761.761 0 0 1 .752-.642h6.242c3.276 0 5.617 1.258 5.617 4.187 0 3.253-2.612 5.568-6.195 5.568H8.892L7.076 21.337z"/>
+                            </svg>
+                        </div>
+                        <span>PayPal</span>
+                    </div>
+                    <span>&rsaquo;</span>
+                </div>
+
+                <!-- QRIS -->
+                <div class="payment-card" onclick="processPayment('QRIS')">
+                    <div class="payment-info">
+                        <div class="payment-icon-box">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="#c0392b">
+                                <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm13-2h3v3h-3v-3zm-5 0h3v3h-3v-3zm2 5h3v3h-3v-3zm3-2h3v5h-3v-5z"/>
+                            </svg>
+                        </div>
+                        <span>QRIS (All Banking & E-Wallet)</span>
+                    </div>
+                    <span>&rsaquo;</span>
+                </div>
+
+                <!-- M-Banking -->
+                <div class="payment-card" onclick="processPayment('Mobile Banking')">
+                    <div class="payment-info">
+                        <div class="payment-icon-box">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#4a3b32">
+                                <path d="M4 10h16v10H4V10zm2 2v6h12v-6H6zm-2-8h16v3H4V4zm2 2h12V5H6v1z"/>
+                            </svg>
+                        </div>
+                        <span>Mobile Banking (Virtual Account)</span>
+                    </div>
+                    <span>&rsaquo;</span>
+                </div>
+            </div>
+
+            <button type="button" class="modal-close" onclick="closePaymentModal()" data-i18n="cancel">Cancel</button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT MULTI-LANGUAGE & LOGIC -->
+    <script>
+        let isFavorited = false;
+        let selectedSize = 'M';
+
+        const translations = {
+            en: {
+                back_to_store: "Back to Store",
+                p13_title: "Silk Midi Skirt",
+                p13_desc: "An exquisitely smooth silk midi skirt designed with a graceful drape and effortless fluid movement. Perfect for creating refined, understated everyday elegance.",
+                choose_size: "Choose Size:",
+                add_to_cart: "Add to Cart",
+                buy_now: "Buy Now",
+                footer: "© 2026 STOCK.HOLM. Designed with elegance.",
+                notif_cart: "Added to cart successfully!",
+                notif_fav_add: "Added to favorites!",
+                notif_fav_remove: "Removed from favorites!",
+                pay_title: "Select Payment Method",
+                pay_sub: "Choose your preferred secure payment gateway to complete your order.",
+                cancel: "Cancel"
+            },
+            id: {
+                back_to_store: "Kembali ke Toko",
+                p13_title: "Rok Midi Sutra",
+                p13_desc: "Rok midi sutra yang sangat halus, dirancang dengan jatuhnya kain yang anggun dan gerakan cair yang alami. Sempurna untuk menciptakan keanggunan kasual sehari-hari yang berkelas.",
+                choose_size: "Pilih Ukuran:",
+                add_to_cart: "Tambah ke Keranjang",
+                buy_now: "Beli Sekarang",
+                footer: "© 2026 STOCK.HOLM. Dirancang dengan elegan.",
+                notif_cart: "Berhasil ditambahkan ke keranjang!",
+                notif_fav_add: "Ditambahkan ke favorit!",
+                notif_fav_remove: "Dihapus dari favorit!",
+                pay_title: "Pilih Metode Pembayaran",
+                pay_sub: "Pilih jalur pembayaran aman yang Anda inginkan untuk menyelesaikan pesanan.",
+                cancel: "Batal"
+            },
+            fr: {
+                back_to_store: "Retour au Magasin",
+                p13_title: "Jupe Midi en Soie",
+                p13_desc: "Une jupe midi en soie exquise et lisse, conçue avec un tombé gracieux et un mouvement fluide.",
+                choose_size: "Choisir la taille:",
+                add_to_cart: "Ajouter au Panier",
+                buy_now: "Acheter",
+                footer: "© 2026 STOCK.HOLM. Conçu avec élégance.",
+                notif_cart: "Ajouté au panier avec succès!",
+                notif_fav_add: "Ajouté aux favoris!",
+                notif_fav_remove: "Retiré des favoris!",
+                pay_title: "Sélectionnez le mode de paiement",
+                pay_sub: "Choisissez votre passerelle de paiement sécurisée préférée pour finaliser votre commande.",
+                cancel: "Annuler"
+            },
+            pt: {
+                back_to_store: "Voltar à Loja",
+                p13_title: "Saia Midi de Seda",
+                p13_desc: "Uma saia midi de seda suave e requintada, projetada com caimento gracioso e movimento fluido.",
+                choose_size: "Escolha o tamanho:",
+                add_to_cart: "Adicionar ao Carrinho",
+                buy_now: "Comprar Agora",
+                footer: "© 2026 STOCK.HOLM. Projetado com elegância.",
+                notif_cart: "Adicionado ao carrinho com sucesso!",
+                notif_fav_add: "Adicionado aos favoritos!",
+                notif_fav_remove: "Removido dos favoritos!",
+                pay_title: "Selecione o Método de Pagamento",
+                pay_sub: "Escolha seu meio de pagamento seguro preferido para concluir o pedido.",
+                cancel: "Cancelar"
+            },
+            de: {
+                back_to_store: "Zurück zum Shop",
+                p13_title: "Seiden-Midirock",
+                p13_desc: "Ein exquisite glatter Seiden-Midirock mit anmutigem Fall und fließender Bewegung.",
+                choose_size: "Größe wählen:",
+                add_to_cart: "In den Warenkorb",
+                buy_now: "Jetzt Kaufen",
+                footer: "© 2026 STOCK.HOLM. Mit Eleganz entworfen.",
+                notif_cart: "Erfolgreich zum Warenkorb hinzugefügt!",
+                notif_fav_add: "Zu den Favoriten hinzugefügt!",
+                notif_fav_remove: "Aus den Favoriten entfernt!",
+                pay_title: "Zahlungsmethode Wählen",
+                pay_sub: "Wählen Sie Ihr bevorzugtes sicheres Zahlungs-Gateway, um Ihre Bestellung abzuschließen.",
+                cancel: "Abbrechen"
+            }
+        };
+
+        const urlParams = new URLSearchParams(window.location.search);
+        let currentLang = urlParams.get('lang') || localStorage.getItem('stockholm_lang') || 'en';
+
+        document.getElementById('lang-select').value = currentLang;
+        changeLanguage(currentLang);
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('stockholm_lang', lang);
+
+            document.getElementById('backLink').href = `new-released.html?lang=${lang}`;
+
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.innerHTML = translations[lang][key];
+                }
+            });
+            
+            updateCartNotifText();
+        }
+
+        function selectSize(element, size) {
+            document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+            selectedSize = size;
+            document.getElementById('selectedSizeDisplay').textContent = size;
+            updateCartNotifText();
+        }
+
+        function updateCartNotifText() {
+            const baseText = translations[currentLang].notif_cart;
+            document.getElementById('cartNotifText').textContent = `${baseText} (Size: ${selectedSize})`;
+        }
+
+        function toggleFavorite() {
+            const btn = document.getElementById('favBtn');
+            const notifText = document.getElementById('favNotifText');
+            isFavorited = !isFavorited;
+
+            if (isFavorited) {
+                btn.classList.add('active');
+                notifText.textContent = translations[currentLang].notif_fav_add;
+            } else {
+                btn.classList.remove('active');
+                notifText.textContent = translations[currentLang].notif_fav_remove;
+            }
+
+            showToast('fav');
+        }
+
+        function showToast(type) {
+            if (type === 'cart') {
+                // SINKRONISASI KE KERANJANG PROFIL (LOCALSTORAGE)
+                let currentCart = [];
+                try {
+                    currentCart = JSON.parse(localStorage.getItem('stockholm_cart')) || [];
+                } catch (e) {
+                    currentCart = [];
+                }
+
+                currentCart.push({
+                    name: "Silk Midi Skirt",
+                    price: 70.00,
+                    image: "product13.JPG",
+                    size: selectedSize,
+                    checkoutUrl: "checkout13.html"
+                });
+
+                localStorage.setItem('stockholm_cart', JSON.stringify(currentCart));
+            }
+
+            const toast = (type === 'cart') ? document.getElementById('toastCart') : document.getElementById('toastFav');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function openPaymentModal() {
+            document.getElementById('paymentModal').classList.add('active');
+        }
+
+        function closePaymentModal() {
+            document.getElementById('paymentModal').classList.remove('active');
+        }
+
+        function processPayment(method) {
+            alert(`Processing payment for Silk Midi Skirt (Size ${selectedSize}) via ${method}...`);
+            closePaymentModal();
+        }
+    </script>
+
+</body>
+</html>

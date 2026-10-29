@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STOCK.HOLM NEWS — Experiential Retail Success in Jakarta</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Playfair Display for editorial headlines, Plus Jakarta Sans for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f9f9f8',
+                            100: '#f2f1ee',
+                            800: '#232321',
+                            900: '#111110',
+                            accent: '#c5a880'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::selection {
+            background-color: #111110;
+            color: #ffffff;
+        }
+        .editorial-border {
+            border-color: #e5e5e0;
+        }
+        .image-zoom-container {
+            overflow: hidden;
+        }
+        .image-zoom-container img {
+            transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .image-zoom-container:hover img {
+            transform: scale(1.04);
+        }
+    </style>
+</head>
+<body class="bg-[#fafaf8] text-brand-900 font-sans antialiased transition-colors duration-300">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-brand-900 text-white text-xs tracking-widest uppercase py-2 text-center px-4 flex justify-between items-center md:justify-center relative">
+        <span>✨ Announcement: Jakarta Pop-Up Concluded — Permanent Boutiques Opening Soon</span>
+        <button onclick="this.parentElement.style.display='none'" class="md:hidden text-gray-400 hover:text-white">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="border-b editorial-border sticky top-0 bg-[#fafaf8]/95 backdrop-blur-md z-50 transition-all">
+        <!-- Date & Meta sub-bar -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 border-b editorial-border hidden md:flex justify-between items-center text-xs text-gray-500 uppercase tracking-widest">
+            <div>Edition: International / South East Asia</div>
+            <div id="current-date">October 28, 2026</div>
+            <div class="flex items-center space-x-4">
+                <a href="#newsletter" class="hover:text-black transition">Subscribe</a>
+                <span>|</span>
+                <button id="bookmark-btn" onclick="toggleBookmark()" class="hover:text-black transition flex items-center gap-1">
+                    <i id="bookmark-icon" class="fa-regular fa-bookmark"></i> <span id="bookmark-text">Save Article</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Masthead Navbar -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+            <button class="text-xl p-2 focus:outline-none md:hidden" id="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <!-- Brand Logo / Masthead -->
+            <div class="text-center flex-1 md:flex-none">
+                <a href="#" class="inline-block">
+                    <span class="block text-2xl sm:text-4xl font-bold tracking-tighter uppercase font-serif">STOCK.HOLM</span>
+                    <span class="block text-[10px] tracking-[0.3em] text-gray-500 uppercase font-sans -mt-1">Journal & Gazette</span>
+                </a>
+            </div>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex space-x-8 text-xs uppercase tracking-widest font-medium">
+                <a href="#" class="border-b-2 border-brand-900 pb-1 font-semibold">News</a>
+                <a href="#collections" class="hover:text-brand-accent transition">Collections</a>
+                <a href="#boutiques" class="hover:text-brand-accent transition">Boutiques</a>
+                <a href="#editorial" class="hover:text-brand-accent transition">Editorial</a>
+            </nav>
+
+            <!-- Action Controls -->
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleDarkMode()" class="p-2 text-gray-700 hover:text-black rounded-full hover:bg-gray-100 transition" title="Toggle Dark/Light Mode">
+                    <i id="theme-icon" class="fa-regular fa-moon text-lg"></i>
+                </button>
+                <button onclick="shareArticle()" class="hidden sm:flex items-center gap-2 text-xs uppercase tracking-wider border border-brand-900 px-3 py-1.5 hover:bg-brand-900 hover:text-white transition">
+                    <i class="fa-solid fa-share-nodes"></i> Share
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden border-b editorial-border bg-[#fafaf8] px-4 pt-2 pb-6 space-y-3 text-sm uppercase tracking-widest md:hidden">
+            <a href="#" class="block py-2 border-b border-gray-100 font-bold">News</a>
+            <a href="#collections" class="block py-2 border-b border-gray-100" onclick="toggleMobileMenu()">Collections</a>
+            <a href="#boutiques" class="block py-2 border-b border-gray-100" onclick="toggleMobileMenu()">Boutiques</a>
+            <a href="#editorial" class="block py-2" onclick="toggleMobileMenu()">Editorial</a>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+
+        <!-- ARTICLE HERO HEADER -->
+        <header class="max-w-4xl mx-auto text-center mb-10 md:mb-14">
+            <div class="inline-flex items-center space-x-2 bg-brand-100 text-brand-900 text-xs tracking-widest uppercase px-3.5 py-1 rounded-full mb-6 font-semibold">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Retail & Culture Release</span>
+            </div>
+            
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold tracking-tight text-brand-900 leading-[1.15] mb-6">
+                STOCK.HOLM Concludes Landmark Experiential Pop-Up in Jakarta
+            </h1>
+
+            <p class="text-lg sm:text-xl text-gray-600 font-serif italic max-w-2xl mx-auto leading-relaxed mb-8">
+                “Over 45,000 visitors immersed themselves in modern Scandinavian minimalism over three weeks. Here is what comes next for the flagship fashion label.”
+            </p>
+
+            <!-- Byline & Controls -->
+            <div class="flex flex-col sm:flex-row items-center justify-between border-t border-b editorial-border py-4 text-xs text-gray-500 tracking-wider uppercase gap-4">
+                <div class="flex items-center space-x-3">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Author" class="w-10 h-10 rounded-full object-cover">
+                    <div class="text-left">
+                        <span class="block font-bold text-brand-900">By Astrid Lindqvist</span>
+                        <span>Senior Fashion & Culture Correspondent</span>
+                    </div>
+                </div>
+
+                <!-- Interactive Font Resizer & Audio Reading controls -->
+                <div class="flex items-center space-x-4">
+                    <span class="hidden md:inline text-gray-400">Read Time: 4 Min</span>
+                    <span class="hidden md:inline text-gray-300">|</span>
+                    <div class="flex items-center space-x-1 border border-gray-300 rounded px-2 py-1 bg-white">
+                        <span class="text-[10px] text-gray-400 mr-1">FONT:</span>
+                        <button onclick="changeFontSize(-1)" class="w-6 h-6 flex items-center justify-center hover:bg-gray-100 rounded font-bold" title="Decrease font size">A-</button>
+                        <button onclick="changeFontSize(1)" class="w-6 h-6 flex items-center justify-center hover:bg-gray-100 rounded font-bold" title="Increase font size">A+</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN HERO IMAGE GALLERY CARD -->
+        <section class="mb-14">
+            <div class="relative rounded-2xl overflow-hidden shadow-2xl bg-gray-900 image-zoom-container">
+                <img id="hero-image" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80" alt="STOCK.HOLM Jakarta Pop Up Interior" class="w-full h-[450px] sm:h-[600px] object-cover opacity-90">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 sm:p-10 text-white">
+                    <span class="text-xs uppercase tracking-widest text-brand-accent mb-2 font-semibold">Exclusive Event Coverage — SCBD, Jakarta</span>
+                    <p class="font-serif text-lg sm:text-2xl max-w-3xl leading-snug">
+                        The architectural interior of the STOCK.HOLM Jakarta pop-up fused monolithic concrete textures with warm Nordic birchwood.
+                    </p>
+                </div>
+            </div>
+            <div class="text-right text-xs text-gray-400 mt-2 font-mono">Photo: STOCK.HOLM Media Press Kit</div>
+        </section>
+
+        <!-- MAIN ARTICLE & SIDEBAR LAYOUT -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            
+            <!-- LEFT COLUMN: ARTICLE BODY (8 cols) -->
+            <article class="lg:col-span-8 space-y-8" id="article-body">
+                
+                <!-- Lead Paragraph -->
+                <p class="text-xl sm:text-2xl font-serif text-brand-900 leading-relaxed first-letter:text-6xl first-letter:font-bold first-letter:float-left first-letter:mr-3 first-letter:mt-1 first-letter:font-serif">
+                    <strong>JAKARTA</strong> — Following three unprecedented weeks of queues spanning the South Central Business District, Swedish luxury minimalist label <strong>STOCK.HOLM</strong> has officially concluded its first experiential retail pop-up in Indonesia. The brand’s debut event proved to be an overwhelming triumph, drawing collectors, stylists, and fashion enthusiasts from across Southeast Asia.
+                </p>
+
+                <div class="my-8 p-6 border-l-4 border-brand-900 bg-brand-100 rounded-r-xl">
+                    <p class="font-serif italic text-lg sm:text-xl text-brand-900">
+                        "The energy and appreciation for clean design in Jakarta exceeded our highest expectations. This pop-up was not just a store; it was a conversation between Stockholm's heritage and Indonesia's vibrant creative spirit."
+                    </p>
+                    <span class="block mt-3 text-xs uppercase tracking-widest font-bold text-gray-600">— Gustav Lindström, Creative Director at STOCK.HOLM</span>
+                </div>
+
+                <h2 class="text-2xl font-serif font-bold text-brand-900 pt-4 border-b editorial-border pb-2">
+                    A Celebration of Minimalist Craftsmanship & Outerwear
+                </h2>
+
+                <p class="text-base sm:text-lg text-gray-700 leading-relaxed font-sans">
+                    The temporary space showcased an exclusive curated range of the label's Autumn/Winter architectural outerwear, lightweight technical tailoring designed specifically for tropical urban climates, and handcrafted leather accessories. Visitors experienced interactive audio-visual installations detailing the sustainable lifecycle of the garments—from organic Scandinavian wool sourcing to zero-waste pattern drafting.
+                </p>
+
+                <!-- FEATURED GARMENT SHOWCASE GRID -->
+                <section id="collections" class="py-6 my-8 bg-white p-6 rounded-2xl border editorial-border shadow-sm">
+                    <div class="flex justify-between items-end mb-6">
+                        <div>
+                            <span class="text-xs uppercase tracking-widest text-brand-accent font-bold">Featured Pieces</span>
+                            <h3 class="text-xl font-serif font-bold text-brand-900">Highlighted Jakarta Exclusives</h3>
+                        </div>
+                        <span class="text-xs text-gray-400">Swipe or click to view</span>
+                    </div>
+
+                    <!-- Garments Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                        <!-- Item 1 -->
+                        <div class="group cursor-pointer">
+                            <div class="relative overflow-hidden rounded-lg bg-gray-100 mb-3 aspect-[3/4]">
+                                <img src="https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=600&q=80" alt="Minimalist Oversized Coat" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <span class="absolute top-2 right-2 bg-black text-white text-[10px] font-bold px-2 py-1 rounded uppercase">Sold Out</span>
+                            </div>
+                            <h4 class="font-serif font-semibold text-sm group-hover:underline">The Nordic Wool Trench</h4>
+                            <p class="text-xs text-gray-500">Structured silhouettes in slate monochrome</p>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="group cursor-pointer">
+                            <div class="relative overflow-hidden rounded-lg bg-gray-100 mb-3 aspect-[3/4]">
+                                <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=600&q=80" alt="Leather Bomber Jacket" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <span class="absolute top-2 right-2 bg-black text-white text-[10px] font-bold px-2 py-1 rounded uppercase">Popular</span>
+                            </div>
+                            <h4 class="font-serif font-semibold text-sm group-hover:underline">Monochrome Bomber</h4>
+                            <p class="text-xs text-gray-500">Vegetable-tanned calfskin with gunmetal hardware</p>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div class="group cursor-pointer">
+                            <div class="relative overflow-hidden rounded-lg bg-gray-100 mb-3 aspect-[3/4]">
+                                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80" alt="Minimalist Knitwear" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <span class="absolute top-2 right-2 bg-black text-white text-[10px] font-bold px-2 py-1 rounded uppercase">Limited</span>
+                            </div>
+                            <h4 class="font-serif font-semibold text-sm group-hover:underline">Merino Ribbed Knit</h4>
+                            <p class="text-xs text-gray-500">Breathable ultra-fine Scandinavian wool</p>
+                        </div>
+                    </div>
+                </section>
+
+                <h2 class="text-2xl font-serif font-bold text-brand-900 pt-4 border-b editorial-border pb-2" id="boutiques">
+                    What's Next: Permanent Flagship Boutiques Coming Soon
+                </h2>
+
+                <p class="text-base sm:text-lg text-gray-700 leading-relaxed font-sans">
+                    Due to the overwhelming demand and high turnout during the pop-up season, STOCK.HOLM executive leadership has officially announced plans for **two permanent flagship boutiques** in Indonesia set to open by late 2027. 
+                </p>
+
+                <p class="text-base sm:text-lg text-gray-700 leading-relaxed font-sans">
+                    While locations remain under wraps, hints suggest the primary boutique will reside in central Jakarta’s luxury retail corridor, with a secondary flagship planned for Bali’s cultural center in Seminyak.
+                </p>
+
+                <!-- Interactive Location Reveal Accordion -->
+                <div class="bg-brand-900 text-white p-6 rounded-2xl shadow-lg my-8">
+                    <h3 class="font-serif text-xl font-bold mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-store text-brand-accent"></i> Expansion Roadmap Teaser
+                    </h3>
+                    <p class="text-xs text-gray-300 mb-4">Click below to view upcoming projected store openings worldwide.</p>
+                    
+                    <div class="space-y-3">
+                        <div class="border-b border-gray-800 pb-2">
+                            <div class="flex justify-between items-center cursor-pointer hover:text-brand-accent transition" onclick="toggleAccordion('loc1')">
+                                <span class="font-medium text-sm">📍 Flagship 01 — Jakarta (SCBD District)</span>
+                                <span class="text-xs bg-brand-accent/20 text-brand-accent px-2 py-0.5 rounded">Q3 2027</span>
+                            </div>
+                            <p id="loc1" class="hidden text-xs text-gray-400 mt-2 pl-4 border-l border-brand-accent">
+                                A 4,000 sq ft multi-level space incorporating cafe culture, custom bespoke tailoring studios, and seasonal runway archives.
+                            </p>
+                        </div>
+
+                        <div class="border-b border-gray-800 pb-2">
+                            <div class="flex justify-between items-center cursor-pointer hover:text-brand-accent transition" onclick="toggleAccordion('loc2')">
+                                <span class="font-medium text-sm">📍 Flagship 02 — Bali (Seminyak Coast)</span>
+                                <span class="text-xs bg-brand-accent/20 text-brand-accent px-2 py-0.5 rounded">Q1 2028</span>
+                            </div>
+                            <p id="loc2" class="hidden text-xs text-gray-400 mt-2 pl-4 border-l border-brand-accent">
+                                Open-air brutalist architecture focusing on sustainable resort-wear, organic linen lines, and art installations.
+                            </p>
+                        </div>
+
+                        <div class="pb-2">
+                            <div class="flex justify-between items-center cursor-pointer hover:text-brand-accent transition" onclick="toggleAccordion('loc3')">
+                                <span class="font-medium text-sm">📍 Flagship 03 — Singapore (Orchard)</span>
+                                <span class="text-xs bg-brand-accent/20 text-brand-accent px-2 py-0.5 rounded">Q4 2028</span>
+                            </div>
+                            <p id="loc3" class="hidden text-xs text-gray-400 mt-2 pl-4 border-l border-brand-accent">
+                                Southeast Asia regional hub featuring digital fitting rooms and exclusive VIP styling suites.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-base sm:text-lg text-gray-700 leading-relaxed font-sans">
+                    Until the permanent doors open, STOCK.HOLM clients in Indonesia can access exclusive online drops and concierge styling appointments through the official global portal.
+                </p>
+
+                <!-- Article Reactions / Interactive feedback -->
+                <div class="border-t border-b editorial-border py-6 my-8 flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-xs uppercase font-bold tracking-widest text-gray-500">Was this article helpful?</span>
+                        <button onclick="reactArticle(this)" class="px-3 py-1.5 border border-gray-300 rounded-full text-xs hover:bg-black hover:text-white transition">👏 Inspiring (142)</button>
+                        <button onclick="reactArticle(this)" class="px-3 py-1.5 border border-gray-300 rounded-full text-xs hover:bg-black hover:text-white transition">🛍️ Excited (289)</button>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button onclick="shareArticle()" class="text-xs uppercase font-bold tracking-widest text-brand-900 hover:underline">
+                            <i class="fa-solid fa-share"></i> Share Story
+                        </button>
+                    </div>
+                </div>
+
+            </article>
+
+            <!-- RIGHT COLUMN: SIDEBAR / RELATED NEWS / NEWSLETTER (4 cols) -->
+            <aside class="lg:col-span-4 space-y-10">
+                
+                <!-- NEWSLETTER CARD -->
+                <div id="newsletter" class="bg-brand-100 p-6 rounded-2xl border editorial-border sticky top-24">
+                    <span class="text-[10px] uppercase tracking-widest bg-brand-900 text-white font-bold px-2.5 py-1 rounded">VIP Access</span>
+                    <h3 class="font-serif text-2xl font-bold mt-3 text-brand-900">Be First For Permanent Opening Invites</h3>
+                    <p class="text-xs text-gray-600 mt-2 mb-4 leading-relaxed">
+                        Subscribe to receive private invitations to our Jakarta boutique opening night, pre-order access for new collections, and seasonal lookbooks.
+                    </p>
+                    
+                    <form id="subscribe-form" onsubmit="handleSubscribe(event)" class="space-y-3">
+                        <div>
+                            <input type="email" required placeholder="Enter your email address..." class="w-full text-xs px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-900 bg-white">
+                        </div>
+                        <button type="submit" class="w-full bg-brand-900 text-white text-xs uppercase tracking-widest py-3 font-bold rounded-lg hover:bg-gray-800 transition shadow-md">
+                            Subscribe To Gazette
+                        </button>
+                    </form>
+                    <div id="subscribe-msg" class="hidden text-xs text-emerald-700 font-semibold mt-3 text-center">
+                        ✓ You are subscribed! Check your inbox for exclusive updates.
+                    </div>
+                    <p class="text-[10px] text-gray-400 mt-3 text-center">We respect your privacy. Unsubscribe at any time.</p>
+                </div>
+
+                <!-- TRENDING IN FASHION / RELATED ARTICLES -->
+                <div class="bg-white p-6 rounded-2xl border editorial-border shadow-sm">
+                    <h3 class="font-serif text-xl font-bold border-b editorial-border pb-3 mb-4 text-brand-900 flex justify-between items-center">
+                        <span>Related Stories</span>
+                        <i class="fa-solid fa-arrow-trend-up text-xs text-brand-accent"></i>
+                    </h3>
+
+                    <div class="space-y-5" id="editorial">
+                        <!-- Related item 1 -->
+                        <a href="#" class="group flex gap-4 items-center">
+                            <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=200&q=80" alt="Minimalist fashion" class="w-16 h-16 object-cover rounded-lg flex-shrink-0 group-hover:opacity-80 transition">
+                            <div>
+                                <span class="text-[10px] uppercase text-brand-accent font-bold tracking-wider">Trend Analysis</span>
+                                <h4 class="font-serif text-sm font-semibold group-hover:underline text-brand-900 line-clamp-2">
+                                    The Rise of Nordic Minimalist Aesthetic in Southeast Asia
+                                </h4>
+                                <span class="text-[10px] text-gray-400">Oct 24, 2026</span>
+                            </div>
+                        </a>
+
+                        <!-- Related item 2 -->
+                        <a href="#" class="group flex gap-4 items-center">
+                            <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=200&q=80" alt="Sustainable Fabrics" class="w-16 h-16 object-cover rounded-lg flex-shrink-0 group-hover:opacity-80 transition">
+                            <div>
+                                <span class="text-[10px] uppercase text-brand-accent font-bold tracking-wider">Sustainability</span>
+                                <h4 class="font-serif text-sm font-semibold group-hover:underline text-brand-900 line-clamp-2">
+                                    Zero-Waste Tailoring: STOCK.HOLM's Eco Initiative
+                                </h4>
+                                <span class="text-[10px] text-gray-400">Oct 19, 2026</span>
+                            </div>
+                        </a>
+
+                        <!-- Related item 3 -->
+                        <a href="#" class="group flex gap-4 items-center">
+                            <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=200&q=80" alt="Streetstyle Jakarta" class="w-16 h-16 object-cover rounded-lg flex-shrink-0 group-hover:opacity-80 transition">
+                            <div>
+                                <span class="text-[10px] uppercase text-brand-accent font-bold tracking-wider">Street Style</span>
+                                <h4 class="font-serif text-sm font-semibold group-hover:underline text-brand-900 line-clamp-2">
+                                    Best Looks Spotted Outside the SCBD Pop-Up Venue
+                                </h4>
+                                <span class="text-[10px] text-gray-400">Oct 15, 2026</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- QUOTE OF THE WEEK CARD -->
+                <div class="p-6 bg-gradient-to-br from-gray-900 to-black text-white rounded-2xl">
+                    <i class="fa-solid fa-quote-left text-brand-accent text-2xl mb-3"></i>
+                    <p class="font-serif text-sm italic leading-relaxed text-gray-200">
+                        "Luxury today is not about excess ornamentation; it is about absolute perfection in proportion, tactile quality, and emotional clarity."
+                    </p>
+                    <div class="mt-4 text-xs font-mono text-brand-accent">— STOCK.HOLM Design Manifesto</div>
+                </div>
+
+            </aside>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-900 text-white border-t border-gray-800 mt-20 pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-gray-800">
+                
+                <div class="space-y-4">
+                    <span class="block text-2xl font-serif font-bold tracking-tighter uppercase">STOCK.HOLM</span>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        High-end fashion journal & news gazette reporting on Scandinavian design, architectural apparel, and international boutique releases.
+                    </p>
+                </div>
+
+                <div>
+                    <h5 class="text-xs uppercase tracking-widest font-bold text-gray-200 mb-4">Categories</h5>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">Retail Releases</a></li>
+                        <li><a href="#" class="hover:text-white transition">Runway Reports</a></li>
+                        <li><a href="#" class="hover:text-white transition">Boutique Architecture</a></li>
+                        <li><a href="#" class="hover:text-white transition">Sustainable Fashion</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="text-xs uppercase tracking-widest font-bold text-gray-200 mb-4">Locations</h5>
+                    <ul class="space-y-2 text-xs text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">Stockholm (Flagship)</a></li>
+                        <li><a href="#" class="hover:text-white transition">Jakarta (Coming 2027)</a></li>
+                        <li><a href="#" class="hover:text-white transition">Tokyo (Ginza)</a></li>
+                        <li><a href="#" class="hover:text-white transition">Copenhagen</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="text-xs uppercase tracking-widest font-bold text-gray-200 mb-4">Follow Gazette</h5>
+                    <div class="flex space-x-4 text-lg">
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-pinterest"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500 gap-4">
+                <p>&copy; 2026 STOCK.HOLM Gazette. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-gray-300">Privacy Policy</a>
+                    <a href="#" class="hover:text-gray-300">Terms of Press</a>
+                    <a href="#" class="hover:text-gray-300">Media Inquiries</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification Toast for interactive actions -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-brand-900 text-white text-xs px-4 py-3 rounded-lg shadow-2xl hidden transition-all duration-300 z-50 flex items-center gap-2">
+        <i class="fa-solid fa-circle-check text-emerald-400"></i>
+        <span id="toast-message">Action completed successfully.</span>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Interactive font scaling
+        let currentFontSize = 18; // base px
+        function changeFontSize(delta) {
+            currentFontSize += delta * 2;
+            if (currentFontSize < 14) currentFontSize = 14;
+            if (currentFontSize > 26) currentFontSize = 26;
+            
+            const articleBody = document.getElementById('article-body');
+            const paragraphs = articleBody.querySelectorAll('p');
+            paragraphs.forEach(p => {
+                p.style.fontSize = `${currentFontSize}px`;
+            });
+            showToast(`Article font size adjusted (${currentFontSize}px)`);
+        }
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Accordion for future locations
+        function toggleAccordion(id) {
+            const element = document.getElementById(id);
+            if (element.classList.contains('hidden')) {
+                element.classList.remove('hidden');
+            } else {
+                element.classList.add('hidden');
+            }
+        }
+
+        // Article Reaction buttons
+        function reactArticle(btn) {
+            btn.classList.toggle('bg-black');
+            btn.classList.toggle('text-white');
+            showToast('Thank you for reacting to this story!');
+        }
+
+        // Toast notifications
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.textContent = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Article share
+        function shareArticle() {
+            if (navigator.clipboard) {
+                document.execCommand('copy');
+                showToast('Article link copied to clipboard!');
+            } else {
+                showToast('Article link copied!');
+            }
+        }
+
+        // Bookmark toggle
+        let isBookmarked = false;
+        function toggleBookmark() {
+            isBookmarked = !isBookmarked;
+            const icon = document.getElementById('bookmark-icon');
+            const text = document.getElementById('bookmark-text');
+            if (isBookmarked) {
+                icon.className = 'fa-solid fa-bookmark text-brand-accent';
+                text.textContent = 'Saved';
+                showToast('Article saved to your bookmarks.');
+            } else {
+                icon.className = 'fa-regular fa-bookmark';
+                text.textContent = 'Save Article';
+                showToast('Removed from bookmarks.');
+            }
+        }
+
+        // Dark mode toggle
+        let isDarkMode = false;
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+
+            if (isDarkMode) {
+                body.classList.remove('bg-[#fafaf8]', 'text-brand-900');
+                body.classList.add('bg-zinc-900', 'text-gray-100');
+                themeIcon.className = 'fa-regular fa-sun text-yellow-400';
+                showToast('Dark mode enabled');
+            } else {
+                body.classList.remove('bg-zinc-900', 'text-gray-100');
+                body.classList.add('bg-[#fafaf8]', 'text-brand-900');
+                themeIcon.className = 'fa-regular fa-moon text-lg';
+                showToast('Light mode enabled');
+            }
+        }
+
+        // Newsletter form handler
+        function handleSubscribe(e) {
+            e.preventDefault();
+            document.getElementById('subscribe-form').reset();
+            document.getElementById('subscribe-msg').classList.remove('hidden');
+            showToast('Subscribed to STOCK.HOLM News!');
+        }
+    </script>
+</body>
+</html>

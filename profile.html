@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STOCK.HOLM - User Profile & Cart</title>
+    <!-- Font Elegan Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background-color: #fcf9f2; color: #4a3b32; position: relative; min-height: 100vh; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* HEADER & BANNER */
+        .banner-container {
+            position: relative;
+            text-align: center;
+            color: #ffffff;
+            height: 300px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            overflow: hidden;
+            background-color: #8b6d5c;
+        }
+
+        .banner-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            z-index: 0;
+            filter: brightness(0.65);
+        }
+
+        .banner-text {
+            position: relative;
+            z-index: 1; 
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+            padding: 0 20px;
+        }
+
+        .banner-text h1 { font-size: 3rem; letter-spacing: 5px; margin-bottom: 8px; }
+        .banner-text p { font-size: 1.15rem; font-style: italic; font-family: 'Playfair Display', serif; }
+
+        /* TOP BAR */
+        .top-bar {
+            background-color: #4a3b32;
+            padding: 8px 30px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logout-btn {
+            color: #f7f3e9;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 5px 14px;
+            border: 1px solid #d1bfae;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            background-color: #d1bfae;
+            color: #4a3b32;
+        }
+
+        /* NAVIGASI */
+        nav { background-color: #634b3e; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; }
+        nav a { color: #f7f3e9; text-decoration: none; padding: 16px 22px; font-size: 0.95rem; font-weight: 500; transition: 0.3s; }
+        nav a:hover, nav a.active { background-color: #d1bfae; color: #4a3b32; }
+
+        .language-dropdown { padding: 12px 20px; }
+        .language-dropdown select {
+            background-color: #d1bfae; color: #4a3b32; border: 1px solid #4a3b32;
+            padding: 6px 12px; border-radius: 4px; font-family: 'Poppins', sans-serif;
+            font-weight: 500; cursor: pointer; outline: none;
+        }
+
+        /* KONTEN */
+        .content-area { background-color: #eaddd3; padding: 40px 20px; min-height: 600px; text-align: center; }
+        .content-box {
+            background-color: #ffffff; border: 2px solid #a68a7a; border-radius: 8px;
+            max-width: 1000px; margin: 0 auto 30px auto; padding: 35px 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            text-align: left;
+        }
+        .content-box h3 { font-size: 1.8rem; margin-bottom: 20px; border-bottom: 1px solid #eaddd3; padding-bottom: 12px; text-align: center; }
+
+        /* PROFIL LAYOUT */
+        .profile-wrapper { display: flex; gap: 30px; align-items: flex-start; flex-wrap: wrap; }
+        .profile-card-side {
+            flex: 1; min-width: 250px; background-color: #fcf9f2; border: 1px solid #eaddd3;
+            border-radius: 6px; padding: 25px; text-align: center;
+        }
+
+        /* FOTO PROFIL & UPLOAD */
+        .profile-avatar-container {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 15px;
+        }
+        .profile-avatar {
+            width: 100%; height: 100%; border-radius: 50%; background-color: #d1bfae;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Playfair Display', serif; font-size: 2.2rem; color: #4a3b32; font-weight: bold;
+            object-fit: cover; border: 2px solid #a68a7a;
+        }
+        .upload-label {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background-color: #634b3e;
+            color: #f7f3e9;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+            border: 2px solid #fcf9f2;
+            transition: 0.3s;
+        }
+        .upload-label:hover { background-color: #8b6d5c; }
+        #pfp-input { display: none; }
+
+        .profile-name-display { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 5px; color: #4a3b32; }
+        .profile-role { font-size: 0.85rem; color: #8b6d5c; font-weight: 500; margin-bottom: 20px; }
+
+        /* TOMBOL WARDROBE & SAVE */
+        .wardrobe-btn {
+            display: block;
+            width: 100%;
+            background-color: #8b6d5c;
+            color: #f7f3e9;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-align: center;
+            margin-bottom: 10px;
+            transition: 0.3s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .wardrobe-btn:hover { background-color: #634b3e; color: #fff; }
+
+        .edit-btn {
+            background-color: #634b3e; color: #f7f3e9; border: none; padding: 10px 20px; border-radius: 4px;
+            font-family: 'Poppins', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: 0.3s;
+            text-decoration: none; text-align: center; display: block; width: 100%;
+        }
+        .edit-btn:hover { background-color: #d1bfae; color: #4a3b32; }
+
+        .profile-details-side { flex: 2; min-width: 300px; display: flex; flex-direction: column; gap: 15px; }
+        .detail-group { display: flex; flex-direction: column; gap: 5px; }
+        .detail-group label { font-size: 0.85rem; font-weight: 600; color: #8b6d5c; text-transform: uppercase; letter-spacing: 1px; }
+        .detail-group input, .detail-group textarea, .detail-group select { 
+            font-size: 1rem; color: #4a3b32; background-color: #fcf9f2; padding: 10px 14px; 
+            border: 1px solid #eaddd3; border-radius: 4px; font-family: 'Poppins', sans-serif; outline: none;
+        }
+        .detail-group input:focus, .detail-group textarea:focus, .detail-group select:focus { border-color: #634b3e; background-color: #fff; }
+
+        /* PHONE GROUP LAYOUT */
+        .phone-input-wrapper { display: flex; gap: 8px; }
+        .phone-input-wrapper select { flex: 1.2; cursor: pointer; }
+        .phone-input-wrapper input { flex: 2.8; }
+
+        .error-msg { color: #b23b3b; font-size: 0.8rem; display: none; margin-top: 3px; }
+
+        /* ================= SHOPPING CART STYLES (SINKRON SAMA INDEX & NEW RELEASED) ================= */
+        .cart-section { margin-top: 20px; }
+        .cart-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .cart-table th, .cart-table td { padding: 12px; text-align: left; border-bottom: 1px solid #eaddd3; font-size: 0.9rem; }
+        .cart-table th { background-color: #fcf9f2; color: #8b6d5c; font-weight: 600; }
+        .cart-item-info { display: flex; align-items: center; gap: 12px; }
+        .cart-item-img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; background-color: #d1bfae; }
+        .remove-cart-btn {
+            background-color: transparent;
+            color: #b23b3b;
+            border: 1px solid #b23b3b;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.78rem;
+            transition: 0.2s;
+        }
+        .remove-cart-btn:hover { background-color: #b23b3b; color: #fff; }
+        
+        .cart-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px solid #eaddd3;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .cart-total { font-size: 1.1rem; font-weight: bold; color: #4a3b32; }
+        .checkout-cart-btn {
+            background-color: #634b3e;
+            color: #f7f3e9;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .checkout-cart-btn:hover { background-color: #8b6d5c; }
+        .empty-cart { text-align: center; color: #8b6d5c; padding: 30px 20px; font-style: italic; }
+
+        /* ================= POP-UP PAYMENT (MODAL) ================= */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(74, 59, 50, 0.5);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background-color: #ffffff;
+            border: 2px solid #a68a7a;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 420px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: left;
+        }
+
+        .modal-box h3 {
+            font-size: 1.6rem;
+            color: #4a3b32;
+            margin-bottom: 8px;
+            text-align: center;
+            border-bottom: none;
+        }
+
+        .modal-box p {
+            font-size: 0.85rem;
+            color: #8b6d5c;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .payment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .payment-card {
+            border: 1px solid #d1bfae;
+            border-radius: 8px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: 0.3s;
+            background-color: #fcf9f2;
+        }
+
+        .payment-card:hover {
+            border-color: #634b3e;
+            background-color: #eaddd3;
+        }
+
+        .payment-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .payment-icon-box {
+            width: 42px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff;
+            border: 1px solid #d1bfae;
+            border-radius: 4px;
+        }
+
+        .payment-info span {
+            font-weight: 600;
+            font-size: 0.92rem;
+            color: #4a3b32;
+        }
+
+        .modal-close {
+            width: 100%;
+            background-color: #8b6d5c;
+            color: #f7f3e9;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .modal-close:hover {
+            background-color: #634b3e;
+        }
+
+        footer { background-color: #4a3b32; color: #eaddd3; text-align: center; padding: 22px; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER BANNER -->
+    <header class="banner-container">
+        <img src="download.JPG" alt="STOCK.HOLM Banner" class="banner-img">
+        <div class="banner-text">
+            <h1>STOCK.HOLM</h1>
+            <p data-i18n="subtitle">Manage Your Personal Account & Cart</p>
+        </div>
+    </header>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <a href="login.html" class="logout-btn" data-i18n="logout">Logout</a>
+    </div>
+
+    <!-- NAVIGASI -->
+    <nav>
+        <a href="index.html" data-i18n="nav_product">Product</a>
+        <a href="news.html" data-i18n="nav_news">News</a>
+        <a href="new-released.html" data-i18n="nav_new">New Released</a>
+        <a href="contact.html" data-i18n="nav_contact">Contact</a>
+        <a href="profile.html" class="active" data-i18n="nav_profile">Profile</a>
+        <a href="credit.html" data-i18n="nav_credit">Credit</a>
+        
+        <div class="language-dropdown">
+            <select id="lang-select" onchange="changeLanguage(this.value)">
+                <option value="en">English</option>
+                <option value="id">Indonesia</option>
+                <option value="fr">Français</option>
+                <option value="pt">Português</option>
+                <option value="de">Deutsch</option>
+            </select>
+        </div>
+    </nav>
+
+    <!-- AREA KONTEN -->
+    <main class="content-area">
+        <h2 data-i18n="content_title">My Profile</h2>
+        
+        <!-- KOTAK 1: INFORMASI AKUN & PROFIL -->
+        <div class="content-box">
+            <h3 data-i18n="welcome">Account Information</h3>
+            
+            <div class="profile-wrapper">
+                <!-- Sisi Kiri: Kartu Avatar & Tombol Wardrobe -->
+                <div class="profile-card-side">
+                    <div class="profile-avatar-container">
+                        <img id="avatar-preview" src="" alt="PFP" class="profile-avatar" style="display: none;">
+                        <div id="avatar-initial" class="profile-avatar">S</div>
+                        <label for="pfp-input" class="upload-label" title="Change Profile Picture">📷</label>
+                        <input type="file" id="pfp-input" accept="image/*" onchange="previewAndSaveImage(event)">
+                    </div>
+                    <div class="profile-name-display" id="name-card-display">Sofia Lindqvist</div>
+                    <div class="profile-role" data-i18n="role">VIP Member</div>
+                    
+                    <a href="wardrobe.html" class="wardrobe-btn" data-i18n="btn_wardrobe">✨ WARDROBE ✨</a>
+                    <button class="edit-btn" onclick="saveProfileData()" data-i18n="btn_save">Save Changes</button>
+                </div>
+
+                <!-- Sisi Kanan: Detail Informasi -->
+                <div class="profile-details-side">
+                    <div class="detail-group">
+                        <label data-i18n="label_fullname">Full Name</label>
+                        <input type="text" id="fullname-input" value="Sofia Lindqvist">
+                    </div>
+                    
+                    <div class="detail-group">
+                        <label data-i18n="label_email">Email Address (Must contain '@')</label>
+                        <input type="email" id="email-input" value="sofia.lindqvist@example.com" placeholder="name@example.com">
+                        <span id="email-error" class="error-msg" data-i18n="err_email">Please enter a valid email address containing '@'.</span>
+                    </div>
+
+                    <div class="detail-group">
+                        <label data-i18n="label_phone">Phone Number (Numbers only, min. 8 digits)</label>
+                        <div class="phone-input-wrapper">
+                            <select id="country-code-select">
+                                <option value="+46">🇸🇪 Sweden (+46)</option>
+                                <option value="+62">🇮🇩 Indonesia (+62)</option>
+                                <option value="+1">🇺🇸 USA (+1)</option>
+                                <option value="+44">🇬🇧 UK (+44)</option>
+                                <option value="+33">🇫🇷 France (+33)</option>
+                                <option value="+49">🇩🇪 Germany (+49)</option>
+                                <option value="+351">🇵🇹 Portugal (+351)</option>
+                            </select>
+                            <input type="tel" id="phone-input" value="701234567" placeholder="e.g. 812345678" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        </div>
+                        <span id="phone-error" class="error-msg" data-i18n="err_phone">Phone number must contain only numbers and be at least 8 digits long.</span>
+                    </div>
+
+                    <div class="detail-group">
+                        <label data-i18n="label_birthdate">Birthdate (Min. 13 years old)</label>
+                        <input type="date" id="birthdate-input" onchange="validateAge()">
+                        <span id="age-error" class="error-msg" data-i18n="err_age">You must be at least 13 years old.</span>
+                    </div>
+
+                    <div class="detail-group">
+                        <label data-i18n="label_address">Shipping Address</label>
+                        <textarea id="address-input" rows="2">Drottninggatan 12, 111 51 Stockholm, Sweden</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KOTAK 2: SHOPPING CART (KERANJANG BELANJA DARI INDEX & NEW RELEASED) -->
+        <div class="content-box cart-section">
+            <h3 data-i18n="cart_title">🛒 My Shopping Cart</h3>
+            <div id="cart-container">
+                <!-- Barang yang di add to cart akan muncul otomatis di sini -->
+            </div>
+        </div>
+    </main>
+
+    <!-- POP-UP PAYMENT MODAL -->
+    <div class="modal-overlay" id="paymentModal">
+        <div class="modal-box">
+            <h3 data-i18n="pay_title">Select Payment Method</h3>
+            <p data-i18n="pay_sub">Choose your preferred secure payment gateway to complete your order.</p>
+            
+            <div class="payment-options">
+                <!-- PayPal -->
+                <div class="payment-card" onclick="processCartPayment('PayPal')">
+                    <div class="payment-info">
+                        <div class="payment-icon-box">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#003087">
+                                <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.72a.761.761 0 0 1 .752-.642h6.242c3.276 0 5.617 1.258 5.617 4.187 0 3.253-2.612 5.568-6.195 5.568H8.892L7.076 21.337z"/>
+                            </svg>
+                        </div>
+                        <span>PayPal</span>
+                    </div>
+                    <span>&rsaquo;</span>
+                </div>
+
+                <!-- QRIS -->
+                <div class="payment-card" onclick="processCartPayment('QRIS')">
+                    <div class="payment-info">
+                        <div class="payment-icon-box">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="#c0392b">
+                                <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm13-2h3v3h-3v-3zm-5 0h3v3h-3v-3zm2 5h3v3h-3v-3zm3-2h3v5h-3v-5z"/>
+                            </svg>
+                        </div>
+                        <span>QRIS (All Banking & E-Wallet)</span>
+                    </div>
+                    <span>&rsaquo;</span>
+                </div>
+
+                <!-- M-Banking -->
+                <div class="payment-card" onclick="processCartPayment('Mobile Banking')">
+                    <div class="payment-info">
+                        <div class="payment-icon-box">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#4a3b32">
+                                <path d="M4 10h16v10H4V10zm2 2v6h12v-6H6zm-2-8h16v3H4V4zm2 2h12V5H6v1z"/>
+                            </svg>
+                        </div>
+                        <span>Mobile Banking (Virtual Account)</span>
+                    </div>
+                    <span>&rsaquo;</span>
+                </div>
+            </div>
+
+            <button type="button" class="modal-close" onclick="closePaymentModal()" data-i18n="cancel">Cancel</button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p data-i18n="footer">&copy; 2026 STOCK.HOLM. Designed with elegance.</p>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC DENGAN PEMBACAAN DARI INDEX / NEW RELEASED -->
+    <script>
+        let currentCartTotal = 0;
+
+        const translations = {
+            en: {
+                subtitle: "Manage Your Personal Account & Cart",
+                logout: "Logout",
+                nav_product: "Product", nav_news: "News", nav_new: "New Released", nav_contact: "Contact", nav_profile: "Profile", nav_credit: "Credit",
+                content_title: "My Profile", welcome: "Account Information",
+                role: "VIP Member", btn_wardrobe: "✨ WARDROBE ✨", btn_save: "Save Changes",
+                label_fullname: "Full Name", label_email: "Email Address (Must contain '@')", label_phone: "Phone Number (Numbers only, min. 8 digits)", label_birthdate: "Birthdate (Min. 13 years old)", label_address: "Shipping Address",
+                err_age: "You must be at least 13 years old.",
+                err_email: "Please enter a valid email address containing '@'.",
+                err_phone: "Phone number must contain only numbers and be at least 8 digits long.",
+                cart_title: "🛒 My Shopping Cart",
+                th_product: "Product", th_price: "Price", th_size: "Size", th_action: "Action",
+                empty_cart: "Your cart is empty. Go back to Product or New Released and click '+ Cart'!",
+                total: "Total:", btn_checkout: "Proceed to Checkout",
+                pay_title: "Select Payment Method",
+                pay_sub: "Choose your preferred secure payment gateway to complete your order.",
+                cancel: "Cancel",
+                footer: "© 2026 STOCK.HOLM. Designed with elegance."
+            },
+            id: {
+                subtitle: "Kelola Akun Pribadi & Keranjang Belanja",
+                logout: "Keluar",
+                nav_product: "Produk", nav_news: "Berita", nav_new: "Rilis Terbaru", nav_contact: "Kontak", nav_profile: "Profil", nav_credit: "Kredit",
+                content_title: "Profil Saya", welcome: "Informasi Akun",
+                role: "Anggota VIP", btn_wardrobe: "✨ WARDROBE ✨", btn_save: "Simpan Perubahan",
+                label_fullname: "Nama Lengkap", label_email: "Alamat Email (Wajib ada '@')", label_phone: "Nomor Telepon (Hanya angka, min. 8 digit)", label_birthdate: "Tanggal Lahir (Min. 13 tahun)", label_address: "Alamat Pengiriman",
+                err_age: "Usia minimal harus 13 tahun.",
+                err_email: "Harap masukkan alamat email yang valid dengan '@'.",
+                err_phone: "Nomor telepon harus berupa angka dan minimal 8 digit.",
+                cart_title: "🛒 Keranjang Belanja Saya",
+                th_product: "Produk", th_price: "Harga", th_size: "Ukuran", th_action: "Aksi",
+                empty_cart: "Keranjang Anda kosong. Buka halaman Produk atau Rilis Terbaru dan klik '+ Cart'!",
+                total: "Total:", btn_checkout: "Lanjut ke Pembayaran",
+                pay_title: "Pilih Metode Pembayaran",
+                pay_sub: "Pilih jalur pembayaran aman yang Anda inginkan untuk menyelesaikan pesanan.",
+                cancel: "Batal",
+                footer: "© 2026 STOCK.HOLM. Dirancang dengan elegan."
+            },
+            fr: {
+                subtitle: "Gérez Votre Compte & Panier",
+                logout: "Déconnexion",
+                nav_product: "Produits", nav_news: "Actualités", nav_new: "Nouveautés", nav_contact: "Contact", nav_profile: "Profil", nav_credit: "Crédits",
+                content_title: "Mon Profil", welcome: "Informations du Compte",
+                role: "Membre VIP", btn_wardrobe: "✨ WARDROBE ✨", btn_save: "Enregistrer",
+                label_fullname: "Nom Complet", label_email: "Adresse Email (Doit contenir '@')", label_phone: "Numéro de Téléphone (Chiffres uniquement, min. 8)", label_birthdate: "Date de Naissance (Min. 13 ans)", label_address: "Adresse de Livraison",
+                err_age: "Vous devez avoir au moins 13 ans.",
+                err_email: "Veuillez entrer une adresse email valide avec '@'.",
+                err_phone: "Le numéro de téléphone ne doit contenir que des chiffres (min. 8).",
+                cart_title: "🛒 Mon Panier",
+                th_product: "Produit", th_price: "Prix", th_size: "Taille", th_action: "Action",
+                empty_cart: "Votre panier est vide. Retournez aux produits ou nouveautés et cliquez sur '+ Cart' !",
+                total: "Total :", btn_checkout: "Procéder au Paiement",
+                pay_title: "Sélectionnez le mode de paiement",
+                pay_sub: "Choisissez votre passerelle de paiement sécurisée préférée pour finaliser votre commande.",
+                cancel: "Annuler",
+                footer: "© 2026 STOCK.HOLM. Conçu avec élégance."
+            },
+            pt: {
+                subtitle: "Gerencie sua Conta e Carrinho",
+                logout: "Sair",
+                nav_product: "Produtos", nav_news: "Notícias", nav_new: "Lançamentos", nav_contact: "Contato", nav_profile: "Perfil", nav_credit: "Créditos",
+                content_title: "Meu Perfil", welcome: "Informações da Conta",
+                role: "Membro VIP", btn_wardrobe: "✨ WARDROBE ✨", btn_save: "Salvar Alterações",
+                label_fullname: "Nome Completo", label_email: "Endereço de E-mail (Deve conter '@')", label_phone: "Número de Telefone (Apenas números, min. 8)", label_birthdate: "Data de Nascimento (Mín. 13 anos)", label_address: "Endereço de Entrega",
+                err_age: "Você deve ter pelo menos 13 anos.",
+                err_email: "Por favor, insira um e-mail válido contendo '@'.",
+                err_phone: "O número de telefone deve conter apenas números e pelo menos 8 dígitos.",
+                cart_title: "🛒 Meu Carrinho de Compras",
+                th_product: "Produto", th_price: "Preço", th_size: "Tamanho", th_action: "Ação",
+                empty_cart: "Seu carrinho está vazio. Vá para Produtos ou Lançamentos e clique em '+ Cart'!",
+                total: "Total:", btn_checkout: "Prosseguir para o Pagamento",
+                pay_title: "Selecione o Método de Pagamento",
+                pay_sub: "Escolha seu meio de pagamento seguro preferido para concluir o pedido.",
+                cancel: "Cancelar",
+                footer: "© 2026 STOCK.HOLM. Projetado com elegância."
+            },
+            de: {
+                subtitle: "Verwalten Sie Ihr Konto & Warenkorb",
+                logout: "Abmelden",
+                nav_product: "Produkte", nav_news: "Neuigkeiten", nav_new: "Neuerscheinungen", nav_contact: "Kontakt", nav_profile: "Profil", nav_credit: "Impressum",
+                content_title: "Mein Profil", welcome: "Kontoinformationen",
+                role: "VIP-Mitglied", btn_wardrobe: "✨ WARDROBE ✨", btn_save: "Änderungen Speichern",
+                label_fullname: "Vollständiger Name", label_email: "E-Mail-Adresse (Muss '@' enthalten)", label_phone: "Telefonnummer (Nur Zahlen, min. 8 Ziffern)", label_birthdate: "Geburtsdatum (Min. 13 Jahre)", label_address: "Lieferadresse",
+                err_age: "Sie müssen mindestens 13 alt sein.",
+                err_email: "Bitte geben Sie eine gültige E-Mail-Adresse mit '@' ein.",
+                err_phone: "Die Telefonnummer darf nur aus Zahlen bestehen und muss mindestens 8 Ziffern lang sein.",
+                cart_title: "🛒 Mein Warenkorb",
+                th_product: "Produkt", th_price: "Preis", th_size: "Größe", th_action: "Aktion",
+                empty_cart: "Ihr Warenkorb ist leer. Gehen Sie zu den Produkten oder Neuheiten und klicken Sie auf '+ Cart'!",
+                total: "Gesamt:", btn_checkout: "Zur Kasse",
+                pay_title: "Zahlungsmethode Wählen",
+                pay_sub: "Wählen Sie Ihr bevorzugtes sicheres Zahlungs-Gateway, um Ihre Bestellung abzuschließen.",
+                cancel: "Abbrechen",
+                footer: "© 2026 STOCK.HOLM. Mit Eleganz entworfen."
+            }
+        };
+
+        function changeLanguage(lang) {
+            localStorage.setItem('stockholm_lang', lang);
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.innerHTML = translations[lang][key];
+                }
+            });
+            renderCart();
+        }
+
+        /* AMBIL DATA PRODUK YANG DI-ADD TO CART */
+        function getCartItems() {
+            try {
+                return JSON.parse(localStorage.getItem('stockholm_cart')) || [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveCartItems(cart) {
+            localStorage.setItem('stockholm_cart', JSON.stringify(cart));
+        }
+
+        function removeFromCart(index) {
+            let cart = getCartItems();
+            cart.splice(index, 1);
+            saveCartItems(cart);
+            renderCart();
+        }
+
+        function renderCart() {
+            const currentLang = localStorage.getItem('stockholm_lang') || 'en';
+            const t = translations[currentLang] || translations.en;
+            const cartContainer = document.getElementById('cart-container');
+            const cart = getCartItems();
+
+            if (cart.length === 0) {
+                currentCartTotal = 0;
+                cartContainer.innerHTML = `<div class="empty-cart">${t.empty_cart}</div>`;
+                return;
+            }
+
+            let total = 0;
+            let html = `
+                <table class="cart-table">
+                    <thead>
+                        <tr>
+                            <th>${t.th_product}</th>
+                            <th>${t.th_price}</th>
+                            <th>${t.th_size}</th>
+                            <th>${t.th_action}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            cart.forEach((item, index) => {
+                total += parseFloat(item.price);
+                html += `
+                    <tr>
+                        <td>
+                            <div class="cart-item-info">
+                                <img src="${item.image || 'product1.JPG'}" alt="${item.name}" class="cart-item-img">
+                                <span>${item.name}</span>
+                            </div>
+                        </td>
+                        <td>$${parseFloat(item.price).toFixed(2)}</td>
+                        <td><strong>${item.size || 'M'}</strong></td>
+                        <td>
+                            <button class="remove-cart-btn" onclick="removeFromCart(${index})">✕ Remove</button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            currentCartTotal = total;
+
+            html += `
+                    </tbody>
+                </table>
+                <div class="cart-summary">
+                    <div class="cart-total">${t.total} $${total.toFixed(2)}</div>
+                    <button class="checkout-cart-btn" onclick="openPaymentModal()">${t.btn_checkout}</button>
+                </div>
+            `;
+
+            cartContainer.innerHTML = html;
+        }
+
+        /* LOGIC PAYMENT MODAL */
+        function openPaymentModal() {
+            if (currentCartTotal <= 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            document.getElementById('paymentModal').classList.add('active');
+        }
+
+        function closePaymentModal() {
+            document.getElementById('paymentModal').classList.remove('active');
+        }
+
+        function processCartPayment(method) {
+            alert(`Processing total payment of $${currentCartTotal.toFixed(2)} via ${method}...`);
+            closePaymentModal();
+            // Resets cart after payment
+            saveCartItems([]);
+            renderCart();
+        }
+
+        /* LOAD DATA saat halaman dibuka */
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('stockholm_lang') || 'en';
+            document.getElementById('lang-select').value = savedLang;
+            changeLanguage(savedLang);
+
+            const savedImage = localStorage.getItem('user_pfp');
+            if (savedImage) {
+                document.getElementById('avatar-preview').src = savedImage;
+                document.getElementById('avatar-preview').style.display = 'block';
+                document.getElementById('avatar-initial').style.display = 'none';
+            }
+
+            if (localStorage.getItem('user_fullname')) {
+                const name = localStorage.getItem('user_fullname');
+                document.getElementById('fullname-input').value = name;
+                document.getElementById('name-card-display').innerText = name;
+                if (!savedImage && name.length > 0) {
+                    document.getElementById('avatar-initial').innerText = name.charAt(0).toUpperCase();
+                }
+            }
+            if (localStorage.getItem('user_email')) {
+                document.getElementById('email-input').value = localStorage.getItem('user_email');
+            }
+            if (localStorage.getItem('user_phone')) {
+                document.getElementById('phone-input').value = localStorage.getItem('user_phone');
+            }
+            if (localStorage.getItem('user_country_code')) {
+                document.getElementById('country-code-select').value = localStorage.getItem('user_country_code');
+            }
+            if (localStorage.getItem('user_birthdate')) {
+                document.getElementById('birthdate-input').value = localStorage.getItem('user_birthdate');
+            }
+            if (localStorage.getItem('user_address')) {
+                document.getElementById('address-input').value = localStorage.getItem('user_address');
+            }
+
+            renderCart();
+        });
+
+        function previewAndSaveImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const base64Image = e.target.result;
+                    localStorage.setItem('user_pfp', base64Image);
+                    
+                    document.getElementById('avatar-preview').src = base64Image;
+                    document.getElementById('avatar-preview').style.display = 'block';
+                    document.getElementById('avatar-initial').style.display = 'none';
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function validatePhone(phone) {
+            const re = /^[0-9]{8,}$/;
+            return re.test(phone);
+        }
+
+        function validateAge() {
+            const birthdateVal = document.getElementById('birthdate-input').value;
+            const errorSpan = document.getElementById('age-error');
+            if (!birthdateVal) return true;
+
+            const birthDate = new Date(birthdateVal);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            if (age < 13) {
+                errorSpan.style.display = 'block';
+                return false;
+            } else {
+                errorSpan.style.display = 'none';
+                return true;
+            }
+        }
+
+        function saveProfileData() {
+            const emailVal = document.getElementById('email-input').value;
+            const emailErrorSpan = document.getElementById('email-error');
+
+            const phoneVal = document.getElementById('phone-input').value;
+            const phoneErrorSpan = document.getElementById('phone-error');
+
+            let isValid = true;
+
+            if (!validateEmail(emailVal)) {
+                emailErrorSpan.style.display = 'block';
+                isValid = false;
+            } else {
+                emailErrorSpan.style.display = 'none';
+            }
+
+            if (!validatePhone(phoneVal)) {
+                phoneErrorSpan.style.display = 'block';
+                isValid = false;
+            } else {
+                phoneErrorSpan.style.display = 'none';
+            }
+
+            if (!validateAge()) {
+                isValid = false;
+            }
+
+            if (!isValid) {
+                alert('Please correct the highlighted errors in the form before saving.');
+                return;
+            }
+
+            const fullname = document.getElementById('fullname-input').value;
+            const countryCode = document.getElementById('country-code-select').value;
+            const birthdate = document.getElementById('birthdate-input').value;
+            const address = document.getElementById('address-input').value;
+
+            localStorage.setItem('user_fullname', fullname);
+            localStorage.setItem('user_email', emailVal);
+            localStorage.setItem('user_phone', phoneVal);
+            localStorage.setItem('user_country_code', countryCode);
+            localStorage.setItem('user_birthdate', birthdate);
+            localStorage.setItem('user_address', address);
+
+            document.getElementById('name-card-display').innerText = fullname;
+            if (!localStorage.getItem('user_pfp') && fullname.length > 0) {
+                document.getElementById('avatar-initial').innerText = fullname.charAt(0).toUpperCase();
+            }
+
+            alert('Profile information and changes successfully saved!');
+        }
+    </script>
+
+</body>
+</html>

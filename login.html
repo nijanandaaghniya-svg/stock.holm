@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - STOCK.HOLM</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fcf9f2;
+            color: #4a3b32;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* HEADER BANNER */
+        .login-header {
+            background-color: #8b6d5c;
+            color: #ffffff;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .login-header h1 {
+            font-size: 2.8rem;
+            letter-spacing: 4px;
+            margin-bottom: 5px;
+        }
+
+        .login-header p {
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+
+        /* CONTAINER FORM LOGIN */
+        .login-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .login-card {
+            background-color: #ffffff;
+            border: 2px solid #a68a7a;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 420px;
+            padding: 40px 30px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+            text-align: center;
+        }
+
+        .login-card h2 {
+            font-size: 2rem;
+            color: #4a3b32;
+            margin-bottom: 8px;
+        }
+
+        .login-card p.sub-text {
+            font-size: 0.9rem;
+            color: #8b6d5c;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #4a3b32;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #d1bfae;
+            border-radius: 4px;
+            background-color: #fcf9f2;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            color: #4a3b32;
+            outline: none;
+            transition: border-color 0.3s, background-color 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #634b3e;
+            background-color: #ffffff;
+        }
+
+        /* BUTTON STYLES */
+        .login-btn {
+            width: 100%;
+            background-color: #634b3e;
+            color: #f7f3e9;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            background-color: #d1bfae;
+            color: #4a3b32;
+        }
+
+        .login-btn:disabled {
+            opacity: 0.7;
+            cursor: wait;
+        }
+
+        /* DIVIDER */
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+            color: #a68a7a;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e0d5cb;
+        }
+
+        .divider span {
+            padding: 0 10px;
+        }
+
+        /* GOOGLE LOGIN BUTTON */
+        .google-btn {
+            width: 100%;
+            background-color: #ffffff;
+            color: #4a3b32;
+            border: 1px solid #d1bfae;
+            padding: 11px 16px;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: background-color 0.3s, border-color 0.3s, box-shadow 0.2s;
+        }
+
+        .google-btn:hover {
+            background-color: #fcf9f2;
+            border-color: #8b6d5c;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .google-icon {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .extra-links {
+            margin-top: 22px;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .extra-links button {
+            background: none;
+            border: none;
+            color: #8b6d5c;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .extra-links button:hover {
+            color: #4a3b32;
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: #4a3b32;
+            color: #eaddd3;
+            text-align: center;
+            padding: 22px;
+            font-size: 0.9rem;
+        }
+
+        /* MODAL & BACKDROP BLUR OVERLAY */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(74, 59, 50, 0.45);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-card {
+            background-color: #ffffff;
+            border: 2px solid #a68a7a;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 420px;
+            padding: 35px 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            text-align: center;
+            position: relative;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: translateY(0);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.6rem;
+            color: #8b6d5c;
+            cursor: pointer;
+            border: none;
+            background: none;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #4a3b32;
+        }
+
+        .modal-card h3 {
+            font-size: 1.8rem;
+            color: #4a3b32;
+            margin-bottom: 8px;
+        }
+
+        .modal-card p.sub-text {
+            font-size: 0.85rem;
+            color: #8b6d5c;
+            margin-bottom: 25px;
+        }
+
+        /* GOOGLE ACCOUNT PICKER LIST */
+        .account-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        .account-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            border: 1px solid #e5dace;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #fcf9f2;
+            transition: background-color 0.2s, border-color 0.2s, transform 0.15s;
+        }
+
+        .account-item:hover {
+            background-color: #ffffff;
+            border-color: #8b6d5c;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .account-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #ffffff;
+            flex-shrink: 0;
+        }
+
+        .avatar-m {
+            background-color: #8b6d5c;
+        }
+
+        .avatar-u {
+            background-color: #634b3e;
+        }
+
+        .account-details {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .account-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #4a3b32;
+        }
+
+        .account-email {
+            font-size: 0.82rem;
+            color: #8b6d5c;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* TOAST NOTIFICATION */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #4a3b32;
+            color: #f7f3e9;
+            padding: 14px 24px;
+            border-radius: 6px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+            font-size: 0.9rem;
+            border-left: 4px solid #a68a7a;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            z-index: 2000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================= HEADER BANNER ================= -->
+    <header class="login-header">
+        <h1>STOCK.HOLM</h1>
+        <p>Your Daily Dose of Elegant Aesthetics</p>
+    </header>
+
+    <!-- ================= AREA FORM LOGIN ================= -->
+    <main class="login-container">
+        <div class="login-card">
+            <h2>Welcome Back</h2>
+            <p class="sub-text">Please enter your credentials to log in.</p>
+
+            <form id="main-login-form" action="index.html" method="GET">
+                <div class="form-group">
+                    <label for="username">Username / Email</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+
+                <button type="submit" class="login-btn" id="main-submit-btn">Sign In</button>
+            </form>
+
+            <div class="divider">
+                <span>or</span>
+            </div>
+
+            <!-- GOOGLE LOGIN BUTTON -->
+            <button type="button" class="google-btn" id="open-google">
+                <svg class="google-icon" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path fill="#FBBC05" d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.62z"/>
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                </svg>
+                Continue with Google
+            </button>
+
+            <div class="extra-links">
+                <button type="button" id="open-forgot">Forgot Password?</button>
+                <button type="button" id="open-register">Create Account</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+        <p>&copy; 2026 STOCK.HOLM. Designed with elegance.</p>
+    </footer>
+
+    <!-- ================= MODAL GOOGLE ACCOUNT PICKER ================= -->
+    <div class="modal-overlay" id="modal-google">
+        <div class="modal-card">
+            <button type="button" class="close-btn" aria-label="Close modal">&times;</button>
+            <h3>Choose an Account</h3>
+            <p class="sub-text">Select an email to continue to <strong>STOCK.HOLM</strong></p>
+            
+            <div class="account-list">
+                <!-- Account Option 1 -->
+                <div class="account-item" onclick="selectGoogleAccount('Mclajota', 'mclajota@gmail.com')">
+                    <div class="account-avatar avatar-m">M</div>
+                    <div class="account-details">
+                        <span class="account-name">Mclajota</span>
+                        <span class="account-email">mclajota@gmail.com</span>
+                    </div>
+                </div>
+
+                <!-- Account Option 2 -->
+                <div class="account-item" onclick="selectGoogleAccount('Umamimamiya', 'umamimamiya@gmail.com')">
+                    <div class="account-avatar avatar-u">U</div>
+                    <div class="account-details">
+                        <span class="account-name">Umamimamiya</span>
+                        <span class="account-email">umamimamiya@gmail.com</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL FORGOT PASSWORD ================= -->
+    <div class="modal-overlay" id="modal-forgot">
+        <div class="modal-card">
+            <button type="button" class="close-btn" aria-label="Close modal">&times;</button>
+            <h3>Reset Password</h3>
+            <p class="sub-text">Enter your email and we'll send you a link to reset your password.</p>
+            <form id="forgot-form">
+                <div class="form-group">
+                    <label for="reset-email">Email Address</label>
+                    <input type="email" id="reset-email" placeholder="Enter your email" required>
+                </div>
+                <button type="submit" class="login-btn">Send Reset Link</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ================= MODAL CREATE ACCOUNT ================= -->
+    <div class="modal-overlay" id="modal-register">
+        <div class="modal-card">
+            <button type="button" class="close-btn" aria-label="Close modal">&times;</button>
+            <h3>Create Account</h3>
+            <p class="sub-text">Join us to experience elegant aesthetics.</p>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="reg-name">Full Name</label>
+                    <input type="text" id="reg-name" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-email">Email Address</label>
+                    <input type="email" id="reg-email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-password">Password</label>
+                    <input type="password" id="reg-password" placeholder="Create a password" required>
+                </div>
+                <button type="submit" class="login-btn">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ================= TOAST NOTIFICATION ================= -->
+    <div class="toast" id="toast-notification">Notification message here</div>
+
+    <!-- ================= JAVASCRIPT LOGIC ================= -->
+    <script>
+        const modalGoogle = document.getElementById('modal-google');
+        const modalForgot = document.getElementById('modal-forgot');
+        const modalRegister = document.getElementById('modal-register');
+        
+        const openGoogleBtn = document.getElementById('open-google');
+        const openForgotBtn = document.getElementById('open-forgot');
+        const openRegisterBtn = document.getElementById('open-register');
+        
+        const closeBtns = document.querySelectorAll('.close-btn');
+        const toast = document.getElementById('toast-notification');
+
+        // Toast feedback trigger function
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3500);
+        }
+
+        // Open Modals
+        openGoogleBtn.addEventListener('click', () => {
+            modalGoogle.classList.add('active');
+        });
+
+        openForgotBtn.addEventListener('click', () => {
+            modalForgot.classList.add('active');
+        });
+
+        openRegisterBtn.addEventListener('click', () => {
+            modalRegister.classList.add('active');
+        });
+
+        // Close Modals
+        function closeModal() {
+            modalGoogle.classList.remove('active');
+            modalForgot.classList.remove('active');
+            modalRegister.classList.remove('active');
+        }
+
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', closeModal);
+        });
+
+        // Close modal when clicking outside content box (overlay area)
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-overlay')) {
+                closeModal();
+            }
+        });
+
+        // Select Google Account handler
+        function selectGoogleAccount(name, email) {
+            closeModal();
+            showToast(`Signed in successfully as ${name} (${email})! Redirecting...`);
+            
+            // Navigate to index.html with query parameters
+            setTimeout(() => {
+                window.location.href = `index.html?account=${encodeURIComponent(email)}`;
+            }, 1200);
+        }
+
+        // Form Submit Handlers
+        document.getElementById('main-login-form').addEventListener('submit', (e) => {
+            const submitBtn = document.getElementById('main-submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Signing in...';
+            showToast('Welcome back! Logging into STOCK.HOLM...');
+            
+            // Note: Normal form submission to index.html will happen automatically via action="index.html"
+        });
+
+        document.getElementById('forgot-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            closeModal();
+            showToast('Password reset link sent to your email!');
+            e.target.reset();
+        });
+
+        document.getElementById('register-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            closeModal();
+            showToast('Account created successfully! Redirecting...');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1200);
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>

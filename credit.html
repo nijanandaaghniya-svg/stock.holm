@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STOCK.HOLM - Credits</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background-color: #fcf9f2; color: #4a3b32; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* HEADER & BANNER */
+        .banner-container {
+            position: relative;
+            text-align: center;
+            color: #ffffff;
+            height: 260px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            overflow: hidden;
+            background-color: #8b6d5c;
+        }
+
+        .banner-img {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: 0; filter: brightness(0.65);
+        }
+
+        .banner-text {
+            position: relative; z-index: 1; 
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+            padding: 0 20px;
+        }
+
+        .banner-text h1 { font-size: 2.8rem; letter-spacing: 4px; margin-bottom: 6px; }
+        .banner-text p { font-size: 1.1rem; font-style: italic; font-family: 'Playfair Display', serif; }
+
+        /* TOP BAR & NAVIGATION */
+        .top-bar {
+            background-color: #4a3b32; padding: 8px 30px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-left-bar { display: flex; align-items: center; gap: 15px; }
+        .back-profile { color: #f7f3e9; text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: 0.3s; }
+        .back-profile:hover { color: #d1bfae; }
+
+        .lang-switcher {
+            background: transparent; border: 1px solid #d1bfae; color: #f7f3e9;
+            padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; cursor: pointer; font-family: 'Poppins', sans-serif;
+        }
+        .lang-switcher option { background: #4a3b32; color: #f7f3e9; }
+
+        .logout-btn {
+            color: #f7f3e9; text-decoration: none; font-size: 0.85rem; font-weight: 500;
+            padding: 5px 14px; border: 1px solid #d1bfae; border-radius: 4px; transition: 0.3s;
+        }
+        .logout-btn:hover { background-color: #d1bfae; color: #4a3b32; }
+
+        nav { background-color: #634b3e; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; }
+        nav a { color: #f7f3e9; text-decoration: none; padding: 14px 20px; font-size: 0.9rem; font-weight: 500; transition: 0.3s; }
+        nav a:hover, nav a.active { background-color: #d1bfae; color: #4a3b32; }
+
+        /* MAIN CONTENT */
+        .content-area { background-color: #eaddd3; padding: 50px 20px; min-height: 650px; }
+        
+        .credit-container {
+            max-width: 1050px; margin: 0 auto;
+            display: flex; flex-direction: column; gap: 40px;
+            text-align: center;
+        }
+
+        /* PRODUCED BY SECTION */
+        .producer-box {
+            background-color: #ffffff; border: 2px solid #a68a7a; border-radius: 8px;
+            padding: 40px 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .producer-box h2 { font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px; color: #8b6d5c; margin-bottom: 10px; }
+        .producer-box h1 { font-size: 3rem; color: #4a3b32; letter-spacing: 3px; font-weight: 700; margin-bottom: 15px; }
+        .producer-box p { font-size: 1rem; color: #634b3e; font-style: italic; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+        /* TEAM SECTION */
+        .team-section h3 {
+            font-size: 2rem; color: #4a3b32; margin-bottom: 25px; position: relative; display: inline-block;
+        }
+        .team-section h3::after {
+            content: ''; position: absolute; width: 60%; height: 2px; background-color: #a68a7a; bottom: -8px; left: 20%;
+        }
+
+        /* GRID TATA LETAK SEJAJAR (4 kolom di layar besar) */
+        .team-grid {
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px; 
+            margin-top: 15px;
+            align-items: stretch; /* Membuat tinggi kartu sejajar dalam satu baris */
+        }
+
+        .team-card {
+            background-color: #ffffff; border: 1px solid #d1bfae; border-radius: 8px;
+            padding: 25px 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); transition: 0.3s;
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .team-card:hover {
+            transform: translateY(-5px); border-color: #8b6d5c; box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .team-avatar {
+            width: 70px; height: 70px; background-color: #eaddd3; border-radius: 50%;
+            margin: 0 auto 15px auto; display: flex; align-items: center; justify-content: center;
+            font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #634b3e; border: 2px solid #8b6d5c;
+        }
+
+        .team-card h4 { font-size: 1.1rem; color: #4a3b32; margin-bottom: 5px; }
+        .team-role { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #8b6d5c; font-weight: 600; margin-bottom: 10px; }
+        .team-card p { font-size: 0.85rem; color: #634b3e; font-style: italic; }
+
+        footer { background-color: #4a3b32; color: #eaddd3; text-align: center; padding: 22px; font-size: 0.9rem; margin-top: 40px; }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER BANNER -->
+    <header class="banner-container">
+        <img src="download.JPG" alt="STOCK.HOLM Banner" class="banner-img">
+        <div class="banner-text">
+            <h1 data-translate="bannerTitle">CREDITS & CREATORS</h1>
+            <p data-translate="bannerSub">The Minds Behind STOCK.HOLM Minimalist Experience</p>
+        </div>
+    </header>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="nav-left-bar">
+            <a href="wardrobe.html" class="back-profile" data-translate="backWardrobe">&larr; Back to Wardrobe</a>
+            <select id="langSelect" class="lang-switcher" onchange="changeLanguage(this.value)">
+                <option value="en" selected>🇬🇧 English</option>
+                <option value="id">🇮🇩 Indonesia</option>
+                <option value="fr">🇫🇷 Français</option>
+                <option value="de">🇩🇪 Deutsch</option>
+                <option value="pt">🇵🇹 Português</option>
+            </select>
+        </div>
+        <a href="login.html" class="logout-btn" data-translate="logoutBtn">Logout</a>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <a href="index.html" data-translate="navProduct">Product</a>
+        <a href="news.html" data-translate="navNews">News</a>
+        <a href="new-released.html" data-translate="navNewReleased">New Released</a>
+        <a href="contact.html" data-translate="navContact">Contact</a>
+        <a href="profile.html" data-translate="navProfile">Profile</a>
+        <a href="credit.html" class="active" data-translate="navCredit">Credit</a>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="content-area">
+        <div class="credit-container">
+            
+            <!-- PRODUCED BY SECTION -->
+            <div class="producer-box">
+                <h2 data-translate="prodSubtitle">Proudly Produced By</h2>
+                <h1>MCLajota</h1>
+                <p data-translate="prodDesc">A visionary digital atelier crafting minimalist aesthetics, seamless user interactions, and sophisticated Nordic-inspired fashion experiences.</p>
+            </div>
+
+            <!-- TEAM SECTION -->
+            <div class="team-section">
+                <h3 data-translate="teamTitle">The Creative Atelier</h3>
+                <div class="team-grid">
+                    
+                    <div class="team-card">
+                        <div class="team-avatar">G.D</div>
+                        <h4>Gaspard Dupond</h4>
+                        <div class="team-role" data-translate="role1">Lead Architect</div>
+                        <p data-translate="desc1">Shaping the structural harmony and core vision of the platform.</p>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="team-avatar">A.B</div>
+                        <h4>Aurelia Beaulieu</h4>
+                        <div class="team-role" data-translate="role2">Creative Director</div>
+                        <p data-translate="desc2">Curating minimalist palettes and timeless Scandinavian layouts.</p>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="team-avatar">T.L</div>
+                        <h4>Thibault Laurent</h4>
+                        <div class="team-role" data-translate="role3">AI Stylist Engineer</div>
+                        <p data-translate="desc3">Developing intelligent garment coordination and multi-language logic.</p>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="team-avatar">C.V</div>
+                        <h4>Camille Vauclerc</h4>
+                        <div class="team-role" data-translate="role4">UI/UX Designer</div>
+                        <p data-translate="desc4">Ensuring smooth fluid interactions and elegant typographic hierarchy.</p>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="team-avatar">E.M</div>
+                        <h4>Éléonore Mercier</h4>
+                        <div class="team-role" data-translate="role5">Brand Strategist</div>
+                        <p data-translate="desc5">Crafting market positioning and global narrative identity.</p>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="team-avatar">L.R</div>
+                        <h4>Lysander Renard</h4>
+                        <div class="team-role" data-translate="role6">Motion & 3D Specialist</div>
+                        <p data-translate="desc6">Bringing virtual garments and visual assets to life with interactive depth.</p>
+                    </div>
+
+                    <!-- TAMBAHAN TOKOH 7 -->
+                    <div class="team-card">
+                        <div class="team-avatar">S.F</div>
+                        <h4>Solène Fontaine</h4>
+                        <div class="team-role" data-translate="role7">Quality Assurance</div>
+                        <p data-translate="desc7">Validating absolute performance stability and seamless multi-device compatibility.</p>
+                    </div>
+
+                    <!-- TAMBAHAN TOKOH 8 -->
+                    <div class="team-card">
+                        <div class="team-avatar">B.M</div>
+                        <h4>Bastian Moreau</h4>
+                        <div class="team-role" data-translate="role8">Backend Infrastructure</div>
+                        <p data-translate="desc8">Maintaining secure cloud synchronization and ultra-fast data delivery.</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p data-translate="footerText">&copy; 2026 STOCK.HOLM. Designed with elegance.</p>
+    </footer>
+
+    <!-- SCRIPT MULTI-LANGUAGE (EN, ID, FR, DE, PT) -->
+    <script>
+        const translations = {
+            en: {
+                bannerTitle: "CREDITS & CREATORS",
+                bannerSub: "The Minds Behind STOCK.HOLM Minimalist Experience",
+                backWardrobe: "&larr; Back to Wardrobe",
+                logoutBtn: "Logout",
+                navProduct: "Product",
+                navNews: "News",
+                navNewReleased: "New Released",
+                navContact: "Contact",
+                navProfile: "Profile",
+                navCredit: "Credit",
+                prodSubtitle: "Proudly Produced By",
+                prodDesc: "A visionary digital atelier crafting minimalist aesthetics, seamless user interactions, and sophisticated Nordic-inspired fashion experiences.",
+                teamTitle: "The Creative Atelier",
+                role1: "Lead Architect",
+                desc1: "Shaping the structural harmony and core vision of the platform.",
+                role2: "Creative Director",
+                desc2: "Curating minimalist palettes and timeless Scandinavian layouts.",
+                role3: "AI Stylist Engineer",
+                desc3: "Developing intelligent garment coordination and multi-language logic.",
+                role4: "UI/UX Designer",
+                desc4: "Ensuring smooth fluid interactions and elegant typographic hierarchy.",
+                role5: "Brand Strategist",
+                desc5: "Crafting market positioning and global narrative identity.",
+                role6: "Motion & 3D Specialist",
+                desc6: "Bringing virtual garments and visual assets to life with interactive depth.",
+                role7: "Quality Assurance",
+                desc7: "Validating absolute performance stability and seamless multi-device compatibility.",
+                role8: "Backend Infrastructure",
+                desc8: "Maintaining secure cloud synchronization and ultra-fast data delivery.",
+                footerText: "&copy; 2026 STOCK.HOLM. Designed with elegance."
+            },
+            id: {
+                bannerTitle: "KREDIT & KREATOR",
+                bannerSub: "Tokoh Di Balik Pengalaman Minimalis STOCK.HOLM",
+                backWardrobe: "← Kembali ke Lemari",
+                logoutBtn: "Keluar",
+                navProduct: "Produk",
+                navNews: "Berita",
+                navNewReleased: "Rilis Baru",
+                navContact: "Kontak",
+                navProfile: "Profil",
+                navCredit: "Kredit",
+                prodSubtitle: "Dengan Bangga Diproduksi Oleh",
+                prodDesc: "Atelier digital visionaris yang merancang estetika minimalis, interaksi pengguna yang mulus, dan pengalaman mode bernuansa Nordik.",
+                teamTitle: "Atelier Kreatif",
+                role1: "Arsitek Utama",
+                desc1: "Membentuk keselarasan struktural dan visi inti platform.",
+                role2: "Direktur Kreatif",
+                desc2: "Mengkurasi palet minimalis dan tata letak Skandinavia yang tak lekang oleh waktu.",
+                role3: "Insinyur AI Stylist",
+                desc3: "Mengembangkan koordinasi pakaian cerdas dan logika multibahasa.",
+                role4: "Desainer UI/UX",
+                desc4: "Memastikan interaksi yang mulus dan hierarki tipografi yang elegan.",
+                role5: "Strategis Merek",
+                desc5: "Menyusun penentuan posisi pasar dan identitas narasi global.",
+                role6: "Spesialis Motion & 3D",
+                desc6: "Menghidupkan pakaian virtual dan aset visual dengan kedalaman interaktif.",
+                role7: "Jaminan Kualitas",
+                desc7: "Memvalidasi stabilitas performa absolut dan kompatibilitas multi-perangkat.",
+                role8: "Infrastruktur Backend",
+                desc8: "Menjaga sinkronisasi cloud yang aman dan pengiriman data super cepat.",
+                footerText: "&copy; 2026 STOCK.HOLM. Designed with elegance."
+            },
+            fr: {
+                bannerTitle: "CRÉDITS & CRÉATEURS",
+                bannerSub: "Les esprits derrière l'expérience minimaliste de STOCK.HOLM",
+                backWardrobe: "&larr; Retour à la Garde-robe",
+                logoutBtn: "Déconnexion",
+                navProduct: "Produit",
+                navNews: "Actualités",
+                navNewReleased: "Nouveautés",
+                navContact: "Contact",
+                navProfile: "Profil",
+                navCredit: "Crédit",
+                prodSubtitle: "Fièrement Produit Par",
+                prodDesc: "Un atelier numérique visionnaire façonnant une esthétique minimaliste, des interactions fluides et des expériences de mode inspirées du style nordique.",
+                teamTitle: "L'Atelier Créatif",
+                role1: "Architecte Principal",
+                desc1: "Façonnant l'harmonie structurelle et la vision centrale de la plateforme.",
+                role2: "Directrice Artistique",
+                desc2: "Sélectionnant des palettes minimalistes et des agencements scandinaves intemporels.",
+                role3: "Ingénieur Styliste IA",
+                desc3: "Développant la coordination intelligente des vêtements et la logique multilingue.",
+                role4: "Designer UI/UX",
+                desc4: "Garantissant des interactions fluides et une hiérarchie typographique élégante.",
+                role5: "Stratège de Marque",
+                desc5: "Élaborant le positionnement sur le marché et l'identité narrative mondiale.",
+                role6: "Spécialiste Motion & 3D",
+                desc6: "Donnant vie aux vêtements virtuels et aux éléments visuels avec profondeur interactive.",
+                role7: "Assurance Qualité",
+                desc7: "Validation de la stabilité absolue des performances et compatibilité multiplateforme.",
+                role8: "Infrastructure Backend",
+                desc8: "Maintien de la synchronisation cloud sécurisée et livraison ultra-rapide des données.",
+                footerText: "&copy; 2026 STOCK.HOLM. Designed with elegance."
+            },
+            de: {
+                bannerTitle: "CREDITS & URHEBER",
+                bannerSub: "Die Köpfe hinter dem STOCK.HOLM Minimalismus-Erlebnis",
+                backWardrobe: "&larr; Zurück zur Garderobe",
+                logoutBtn: "Abmelden",
+                navProduct: "Produkt",
+                navNews: "Nachrichten",
+                navNewReleased: "Neuerscheinungen",
+                navContact: "Kontakt",
+                navProfile: "Profil",
+                navCredit: "Impressum",
+                prodSubtitle: "Stolz Produziert Von",
+                prodDesc: "Ein visionäres digitales Atelier, das minimalistische Ästhetik, nahtlose Benutzerinteraktionen und anspruchsvolle nordisch inspirierte Modeerlebnisse gestaltet.",
+                teamTitle: "Das Kreativ-Atelier",
+                role1: "Leitender Architekt",
+                desc1: "Gestaltung der strukturellen Harmonie und Kernvision der Plattform.",
+                role2: "Kreativdirektorin",
+                desc2: "Kuratieren minimalistischer Paletten und zeitloser skandinavischer Layouts.",
+                role3: "KI-Stylisten-Ingenieur",
+                desc3: "Entwicklung intelligenter Kleidungsstück-Koordination und mehrsprachiger Logik.",
+                role4: "UI/UX-Designer",
+                desc4: "Sicherstellung reibungsloser Interaktionen und eleganter Typografie-Hierarchie.",
+                role5: "Markenstratege",
+                desc5: "Entwicklung der Marktpositionierung und globalen Markenidentität.",
+                role6: "Motion- & 3D-Spezialist",
+                desc6: "Erwecken virtueller Kleidungsstücke und visueller Assets mit interaktiver Tiefe zum Leben.",
+                role7: "Qualitätssicherung",
+                desc7: "Validierung absoluter Leistungastabilität und nahtloser Multi-Device-Kompatibilität.",
+                role8: "Backend-Infrastruktur",
+                desc8: "Wartung sicherer Cloud-Synchronisation und ultraschneller Datenbereitstellung.",
+                footerText: "&copy; 2026 STOCK.HOLM. Designed with elegance."
+            },
+            pt: {
+                bannerTitle: "CRÉDITOS & CRIADORES",
+                bannerSub: "As mentes por trás da experiência minimalista STOCK.HOLM",
+                backWardrobe: "&larr; Voltar ao Guarda-Roupa",
+                logoutBtn: "Sair",
+                navProduct: "Produto",
+                navNews: "Notícias",
+                navNewReleased: "Lançamentos",
+                navContact: "Contato",
+                navProfile: "Perfil",
+                navCredit: "Crédito",
+                prodSubtitle: "Produzido Com Orgulho Por",
+                prodDesc: "Um atelier digital visionário que cria estética minimalista, interações fluidas e experiências de moda sofisticadas de inspiração nórdica.",
+                teamTitle: "O Atelier Criativo",
+                role1: "Arquiteto Principal",
+                desc1: "Moldando a harmonia estrutural e a visão central da plataforma.",
+                role2: "Diretora Criativa",
+                desc2: "Curando paletas minimalistas e layouts escandinavos atemporais.",
+                role3: "Engenheiro de IA Stylist",
+                desc3: "Desenvolvendo coordenação inteligente de vestuário e lógica multilíngue.",
+                role4: "Designer UI/UX",
+                desc4: "Garantindo interações fluidas e hierarquia tipográfica elegante.",
+                role5: "Estrategista de Marca",
+                desc5: "Elaborando o posicionamento de mercado e a identidade narrativa global.",
+                role6: "Especialista em Motion & 3D",
+                desc6: "Dando vida a roupas virtuais e ativos visuais com profundidade interativa.",
+                role7: "Garantia de Qualidade",
+                desc7: "Validando estabilidade de desempenho absoluto e compatibilidade multi-dispositivos.",
+                role8: "Infraestrutura Backend",
+                desc8: "Mantendo sincronização segura em nuvem e entrega de dados ultrarrápida.",
+                footerText: "&copy; 2026 STOCK.HOLM. Designed with elegance."
+            }
+        };
+
+        let currentLang = 'en';
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            
+            document.querySelectorAll('[data-translate]').forEach(el => {
+                const key = el.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            changeLanguage('en');
+        });
+    </script>
+
+</body>
+</html>

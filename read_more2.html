@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sustainable Fabrics: Our Commitment — STOCK.HOLM JOURNAL</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #f4f6f0;
+            --bg-card: #ffffff;
+            --text-primary: #1c241e;
+            --text-muted: #5a665d;
+            --accent-sage: #4a6b53;
+            --accent-earth: #8c6d46;
+            --border-color: rgba(28, 36, 30, 0.12);
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Space Grotesk', sans-serif;
+            --max-width: 1280px;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #121814;
+            --bg-card: #1b221d;
+            --text-primary: #ebf0ec;
+            --text-muted: #94a398;
+            --accent-sage: #7ba887;
+            --accent-earth: #c4a174;
+            --border-color: rgba(235, 240, 236, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Top Bar */
+        .top-nav {
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .brand-logo {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .theme-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            padding: 6px 16px;
+            border-radius: 30px;
+            color: var(--text-primary);
+            cursor: pointer;
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            transition: all 0.2s ease;
+        }
+
+        .theme-btn:hover {
+            background-color: var(--accent-sage);
+            color: #fff;
+            border-color: var(--accent-sage);
+        }
+
+        /* Container Layout */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* News Banner Section */
+        .hero-banner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 60px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            padding: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .hero-banner {
+                grid-template-columns: 1fr;
+                padding: 24px;
+            }
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: rgba(74, 107, 83, 0.15);
+            color: var(--accent-sage);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+        }
+
+        .hero-banner h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(2.2rem, 4vw, 3.5rem);
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .hero-banner p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .banner-img-wrapper {
+            width: 100%;
+        }
+
+        .banner-img {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            border-radius: 8px;
+            display: block;
+        }
+
+        /* Editorial Content Split */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 50px;
+        }
+
+        @media (max-width: 850px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .article-body p {
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .highlight-box {
+            border-left: 4px solid var(--accent-sage);
+            padding: 20px 24px;
+            background-color: var(--bg-card);
+            margin: 30px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-box h3 {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            color: var(--accent-sage);
+        }
+
+        /* Side Cards Grid */
+        .side-news {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .news-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.2s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .news-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 6px;
+            display: block;
+        }
+
+        .news-card h4 {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            margin-top: 12px;
+        }
+
+        .news-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Credit Link Style di bawah foto */
+        .img-source {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-decoration: underline;
+            margin-top: 6px;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+            transition: opacity 0.2s ease;
+        }
+
+        .img-source:hover {
+            opacity: 1;
+            color: var(--accent-sage);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 80px;
+        }
+
+        /* Link Unsplash di Footer */
+        .footer-unsplash-link {
+            display: block;
+            margin-top: 8px;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-decoration: underline;
+            opacity: 0.75;
+            transition: opacity 0.2s ease, color 0.2s ease;
+        }
+
+        .footer-unsplash-link:hover {
+            opacity: 1;
+            color: var(--accent-sage);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div>STOCK.HOLM / SUSTAINABILITY REPORT</div>
+        <a href="#" class="brand-logo">S.H JOURNAL</a>
+        <button class="theme-btn" onclick="toggleTheme()" id="theme-toggle">Dark Mode</button>
+    </nav>
+
+    <main class="container">
+        
+        <!-- Hero Banner Section -->
+        <section class="hero-banner">
+            <div>
+                <span class="badge">Eco Initiative</span>
+                <h1>Sustainable Fabrics: Our Commitment</h1>
+                <p>We are stepping forward into eco-friendly manufacturing by utilizing 100% organic linen and recycled wool for all upcoming apparel lines.</p>
+            </div>
+            <div class="banner-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?auto=format&fit=crop&w=800&q=80" alt="Organic Fabric Texture" class="banner-img">
+                <a href="https://images.unsplash.com/photo-1584100936595-c0654b55a2e2" target="_blank" rel="noopener noreferrer" class="img-source">Source: Unsplash</a>
+            </div>
+        </section>
+
+        <!-- Main Content & Sidebar -->
+        <div class="content-grid">
+            
+            <!-- Article Main Text -->
+            <article class="article-body">
+                <p>As part of our continuous commitment to environmental stewardship, STOCK.HOLM is proud to announce a pivotal shift in our material sourcing strategy. Moving forward, all new outerwear and apparel lines will incorporate exclusively sustainable materials.</p>
+                
+                <div class="highlight-box">
+                    <h3>100% Organic Linen</h3>
+                    <p>Sourced directly from certified European farmers using zero synthetic pesticides and minimal water footprint.</p>
+                </div>
+
+                <p>Linen remains one of the most durable and biodegradable textiles available. By shifting entirely to organic farming practices, we reduce soil degradation while maintaining the crisp, breathable quality our garments are known for.</p>
+
+                <div class="highlight-box" style="border-left-color: var(--accent-earth);">
+                    <h3 style="color: var(--accent-earth);">Recycled Wool Program</h3>
+                    <p>Repurposing high-gauge post-consumer wool garments to create luxury-grade winter overcoats.</p>
+                </div>
+
+                <p>Through closed-loop mechanical recycling, collected wool waste is sorted, shredded, and re-spun into dense virgin-quality yarns—eliminating the need for intensive land grazing and chemical dyeing processes.</p>
+            </article>
+
+            <!-- Side Featured Items -->
+            <aside class="side-news">
+                <div class="news-card">
+                    <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=600&q=80" alt="Recycled Wool Process">
+                    <a href="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f" target="_blank" rel="noopener noreferrer" class="img-source">Source: Unsplash</a>
+                    <h4>Circular Material Sourcing</h4>
+                    <p>How we re-spin post-consumer garments into high-density winter coats without losing fiber integrity.</p>
+                </div>
+
+                <div class="news-card">
+                    <img src="https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?auto=format&fit=crop&w=600&q=80" alt="Organic Linen Weaving">
+                    <a href="https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17" target="_blank" rel="noopener noreferrer" class="img-source">Source: Unsplash</a>
+                    <h4>Zero-Pesticide Linen Harvest</h4>
+                    <p>A closer look at our partner farms in Northern Europe practicing regenerative agriculture.</p>
+                </div>
+            </aside>
+
+        </div>
+
+    </main>
+
+    <!-- Footer dengan link Unsplash kecil di bagian paling bawah -->
+    <footer>
+        <p>&copy; 2026 STOCK.HOLM Atelier. Committed to Responsible Design & Sustainable Manufacturing.</p>
+        <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer" class="footer-unsplash-link">Photos provided by Unsplash</a>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const btn = document.getElementById("theme-toggle");
+            if (body.getAttribute("data-theme") === "dark") {
+                body.removeAttribute("data-theme");
+                btn.innerText = "Dark Mode";
+            } else {
+                body.setAttribute("data-theme", "dark");
+                btn.innerText = "Light Mode";
+            }
+        }
+    </script>
+</body>
+</html>

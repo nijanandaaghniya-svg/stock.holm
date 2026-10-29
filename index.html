@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STOCK.HOLM - Clothing Store</title>
+    <!-- Font Elegan Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background-color: #fcf9f2; color: #4a3b32; position: relative; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* HEADER & BANNER */
+        .banner-container {
+            position: relative;
+            text-align: center;
+            color: #ffffff;
+            height: 400px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            overflow: hidden;
+            background-color: #8b6d5c;
+        }
+
+        .banner-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            z-index: 0;
+            filter: brightness(0.65);
+        }
+
+        .banner-text {
+            position: relative;
+            z-index: 1; 
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+            padding: 0 20px;
+        }
+
+        .banner-text h1 { font-size: 3.8rem; letter-spacing: 5px; margin-bottom: 8px; }
+        .banner-text p { font-size: 1.25rem; font-style: italic; font-family: 'Playfair Display', serif; }
+
+        /* TOP BAR */
+        .top-bar {
+            background-color: #4a3b32;
+            padding: 8px 30px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logout-btn {
+            color: #f7f3e9;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 5px 14px;
+            border: 1px solid #d1bfae;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            background-color: #d1bfae;
+            color: #4a3b32;
+        }
+
+        /* NAVIGASI */
+        nav { background-color: #634b3e; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; }
+        nav a { color: #f7f3e9; text-decoration: none; padding: 16px 22px; font-size: 0.95rem; font-weight: 500; transition: 0.3s; }
+        nav a:hover { background-color: #d1bfae; color: #4a3b32; }
+
+        .language-dropdown { padding: 12px 20px; }
+        .language-dropdown select {
+            background-color: #d1bfae; color: #4a3b32; border: 1px solid #4a3b32;
+            padding: 6px 12px; border-radius: 4px; font-family: 'Poppins', sans-serif;
+            font-weight: 500; cursor: pointer; outline: none;
+        }
+
+        /* KONTEN */
+        .content-area { background-color: #eaddd3; padding: 40px 20px; min-height: 600px; text-align: center; }
+        .content-area > h2 { margin-bottom: 20px; font-size: 2rem; color: #4a3b32; }
+        .content-box {
+            background-color: #ffffff; border: 2px solid #a68a7a; border-radius: 8px;
+            max-width: 1200px; margin: 0 auto; padding: 35px 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .content-box h3 { font-size: 1.9rem; margin-bottom: 10px; border-bottom: 1px solid #eaddd3; padding-bottom: 12px; }
+
+        /* GRID PRODUK */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px; margin-top: 30px; }
+        .product-card { 
+            background-color: #fcf9f2; 
+            border: 1px solid #eaddd3; 
+            border-radius: 6px; 
+            padding: 15px; 
+            text-align: center; 
+            transition: 0.3s; 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(100, 75, 62, 0.2); }
+        
+        .product-image { 
+            width: 100%; 
+            height: 220px; 
+            object-fit: cover; 
+            border-radius: 4px; 
+            margin-bottom: 10px; 
+            background-color: #d1bfae;
+            display: block; 
+        }
+
+        .product-source-link {
+            display: block;
+            font-size: 0.7rem;
+            color: #8b6d5c;
+            text-decoration: underline;
+            margin-bottom: 10px;
+            transition: color 0.2s;
+        }
+        .product-source-link:hover {
+            color: #4a3b32;
+        }
+
+        .product-title { font-size: 1.1rem; margin-bottom: 6px; font-family: 'Playfair Display', serif; }
+        .product-price { color: #8b6d5c; font-weight: bold; margin-bottom: 12px; }
+
+        .btn-group-card {
+            display: flex;
+            gap: 8px;
+        }
+
+        .cart-add-btn {
+            background-color: #fcf9f2;
+            color: #8b6d5c;
+            border: 1px solid #d1bfae;
+            padding: 8px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            flex: 1;
+        }
+
+        .cart-add-btn:hover {
+            background-color: #eaddd3;
+            color: #4a3b32;
+        }
+
+        .buy-btn {
+            display: inline-block;
+            background-color: #634b3e;
+            color: #f7f3e9;
+            text-decoration: none;
+            padding: 8px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: 0.3s ease;
+            text-align: center;
+            flex: 1;
+        }
+
+        .buy-btn:hover {
+            background-color: #d1bfae;
+            color: #4a3b32;
+        }
+
+        footer { background-color: #4a3b32; color: #eaddd3; text-align: center; padding: 22px; font-size: 0.9rem; }
+        .footer-pinterest-link {
+            display: inline-block;
+            margin-top: 6px;
+            font-size: 0.75rem;
+            color: #d1bfae;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+        .footer-pinterest-link:hover {
+            color: #ffffff;
+        }
+
+        /* TOAST NOTIFIKASI */
+        .toast-notif {
+            position: fixed;
+            top: 20px;
+            right: -350px;
+            background-color: #4a3b32;
+            color: #f7f3e9;
+            padding: 12px 20px;
+            border-radius: 6px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 99999;
+            transition: right 0.4s ease-in-out;
+            font-size: 0.88rem;
+        }
+        .toast-notif.show { right: 20px; }
+
+        /* NOTIFIKASI SAVE PASSWORD */
+        .pwd-native-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #ffffff;
+            border: 1px solid #a68a7a;
+            border-radius: 8px;
+            width: 330px;
+            padding: 16px;
+            box-shadow: 0 8px 24px rgba(74, 59, 50, 0.2);
+            z-index: 99999;
+            font-family: 'Poppins', sans-serif;
+            animation: slideInRight 0.3s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .pwd-toast-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+        .pwd-toast-header svg { width: 20px; height: 20px; fill: #8b6d5c; }
+        .pwd-toast-header h4 { font-size: 0.95rem; color: #4a3b32; font-family: 'Playfair Display', serif; }
+        .pwd-toast-body { font-size: 0.8rem; color: #634b3e; margin-bottom: 12px; line-height: 1.3; }
+        .pwd-toast-email { font-weight: 600; color: #4a3b32; }
+        .pwd-toast-actions { display: flex; justify-content: flex-end; gap: 8px; }
+        .pwd-toast-btn-never { background-color: transparent; color: #8b6d5c; border: 1px solid #d1bfae; padding: 6px 12px; border-radius: 4px; font-size: 0.78rem; font-weight: 500; cursor: pointer; }
+        .pwd-toast-btn-save { background-color: #634b3e; color: #f7f3e9; border: none; padding: 6px 14px; border-radius: 4px; font-size: 0.78rem; font-weight: 600; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER BANNER -->
+    <header class="banner-container">
+        <img src="download.JPG" alt="STOCK.HOLM Banner" class="banner-img">
+        <div class="banner-text">
+            <h1>STOCK.HOLM</h1>
+            <p data-i18n="subtitle">Your Daily Dose of Elegant Aesthetics</p>
+        </div>
+    </header>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <a href="login.html" class="logout-btn" data-i18n="logout">Logout</a>
+    </div>
+
+    <!-- NAVIGASI -->
+    <nav>
+        <a href="index.html" data-i18n="nav_product">Product</a>
+        <a href="news.html" data-i18n="nav_news">News</a>
+        <a href="new-released.html" data-i18n="nav_new">New Released</a>
+        <a href="contact.html" data-i18n="nav_contact">Contact</a>
+        <a href="profile.html" data-i18n="nav_profile">Profile</a>
+        <a href="credit.html" data-i18n="nav_credit">Credit</a>
+        
+        <div class="language-dropdown">
+            <select id="lang-select" onchange="changeLanguage(this.value)">
+                <option value="en">English</option>
+                <option value="id">Indonesia</option>
+                <option value="fr">Français</option>
+                <option value="pt">Português</option>
+                <option value="de">Deutsch</option>
+            </select>
+        </div>
+    </nav>
+
+    <!-- AREA KONTEN -->
+    <main class="content-area">
+        <h2 data-i18n="content_title">Content Area</h2>
+        
+        <div class="content-box">
+            <h3 data-i18n="welcome">Welcome to STOCK.HOLM</h3>
+            <p data-i18n="desc">Discover our curated collection of cozy and elegant apparel.</p>
+            
+            <div class="product-grid" id="product">
+                
+                <!-- Produk 1 -->
+                <div class="product-card">
+                    <div>
+                        <img src="product1.JPG" alt="Knit Sweater" class="product-image">
+                        <a href="https://pin.it/6ggklRp5k" target="_blank" class="product-source-link">Source: Pinterest</a>
+                        <div class="product-title" data-i18n="p1">Knit Sweater</div>
+                        <div class="product-price">$45.00</div>
+                    </div>
+                    <div class="btn-group-card">
+                        <button class="cart-add-btn" onclick="addToGlobalCart('Knit Sweater', 45.00, 'product1.JPG', 'checkout1.html')">+ Cart</button>
+                        <a href="checkout1.html" class="buy-btn" data-i18n="buy_now">View</a>
+                    </div>
+                </div>
+
+                <!-- Produk 2 -->
+                <div class="product-card">
+                    <div>
+                        <img src="product2.JPG" alt="Classic Trench" class="product-image">
+                        <a href="https://pin.it/mKqyvOKlO" target="_blank" class="product-source-link">Source: Pinterest</a>
+                        <div class="product-title" data-i18n="p2">Classic Trench</div>
+                        <div class="product-price">$89.00</div>
+                    </div>
+                    <div class="btn-group-card">
+                        <button class="cart-add-btn" onclick="addToGlobalCart('Classic Trench', 89.00, 'product2.JPG', 'checkout2.html')">+ Cart</button>
+                        <a href="checkout2.html" class="buy-btn" data-i18n="buy_now">View</a>
+                    </div>
+                </div>
+
+                <!-- Produk 3 -->
+                <div class="product-card">
+                    <div>
+                        <img src="product3.JPG" alt="Linen Trousers" class="product-image">
+                        <a href="https://pin.it/3MrwNO7Ou" target="_blank" class="product-source-link">Source: Pinterest</a>
+                        <div class="product-title" data-i18n="p3">Linen Trousers</div>
+                        <div class="product-price">$55.00</div>
+                    </div>
+                    <div class="btn-group-card">
+                        <button class="cart-add-btn" onclick="addToGlobalCart('Linen Trousers', 55.00, 'product3.JPG', 'checkout3.html')">+ Cart</button>
+                        <a href="checkout3.html" class="buy-btn" data-i18n="buy_now">View</a>
+                    </div>
+                </div>
+
+                <!-- Produk 4 -->
+                <div class="product-card">
+                    <div>
+                        <img src="product4.JPG" alt="Cotton Blouse" class="product-image">
+                        <a href="https://pin.it/MG4rLybgY" target="_blank" class="product-source-link">Source: Pinterest</a>
+                        <div class="product-title" data-i18n="p4">Cotton Blouse</div>
+                        <div class="product-price">$35.00</div>
+                    </div>
+                    <div class="btn-group-card">
+                        <button class="cart-add-btn" onclick="addToGlobalCart('Cotton Blouse', 35.00, 'product4.JPG', 'checkout4.html')">+ Cart</button>
+                        <a href="checkout4.html" class="buy-btn" data-i18n="buy_now">View</a>
+                    </div>
+                </div>
+
+                <!-- Produk 5 -->
+                <div class="product-card">
+                    <div>
+                        <img src="product5.JPG" alt="Wool Scarf" class="product-image">
+                        <a href="https://pin.it/p1VNV3fIR" target="_blank" class="product-source-link">Source: Pinterest</a>
+                        <div class="product-title" data-i18n="p5">Wool Scarf</div>
+                        <div class="product-price">$25.00</div>
+                    </div>
+                    <div class="btn-group-card">
+                        <button class="cart-add-btn" onclick="addToGlobalCart('Wool Scarf', 25.00, 'product5.JPG', 'checkout.html')">+ Cart</button>
+                        <a href="checkout5.html" class="buy-btn" data-i18n="buy_now">View</a>
+                    </div>
+                </div>
+
+                <!-- Produk 6 -->
+                <div class="product-card">
+                    <div>
+                        <img src="product6.JPG" alt="Pleated Skirt" class="product-image">
+                        <a href="https://pin.it/6Jd2J7vDK" target="_blank" class="product-source-link">Source: Pinterest</a>
+                        <div class="product-title" data-i18n="p6">Pleated Skirt</div>
+                        <div class="product-price">$40.00</div>
+                    </div>
+                    <div class="btn-group-card">
+                        <button class="cart-add-btn" onclick="addToGlobalCart('Pleated Skirt', 40.00, 'product6.JPG', 'checkout.html')">+ Cart</button>
+                        <a href="checkout6.html" class="buy-btn" data-i18n="buy_now">View</a>
+                    </div>
+                </div>
+
+                <!-- Produk 7 -->
+                <div class="product-card">
+                    <div>
+                        <img src="product7.jpg" alt="Oversized Blazer" class="product-image">
+                        <a href="https://pin.it/6JcBWr5VK" target="_blank" class="product-source-link">Source: Pinterest</a>
+                        <div class="product-title" data-i18n="p7">Oversized Blazer</div>
+                        <div class="product-price">$75.00</div>
+                    </div>
+                    <div class="btn-group-card">
+                        <button class="cart-add-btn" onclick="addToGlobalCart('Oversized Blazer', 75.00, 'product7.jpg', 'checkout.html')">+ Cart</button>
+                        <a href="checkout7.html" class="buy-btn" data-i18n="buy_now">View</a>
+                    </div>
+                </div>
+
+                <!-- Produk 8 -->
+                <div class="product-card">
+                    <div>
+                        <img src="product8.JPG" alt="Ribbed Beanie" class="product-image">
+                        <a href="https://pin.it/66cbuvZky" target="_blank" class="product-source-link">Source: Pinterest</a>
+                        <div class="product-title" data-i18n="p8">Ribbed Beanie</div>
+                        <div class="product-price">$18.00</div>
+                    </div>
+                    <div class="btn-group-card">
+                        <button class="cart-add-btn" onclick="addToGlobalCart('Ribbed Beanie', 18.00, 'product8.JPG', 'checkout.html')">+ Cart</button>
+                        <a href="checkout8.html" class="buy-btn" data-i18n="buy_now">View</a>
+                    </div>
+                </div>
+
+                <!-- Produk 9 -->
+                <div class="product-card">
+                    <div>
+                        <img src="product9.JPG" alt="Leather Belt" class="product-image">
+                        <a href="https://pin.it/3aRsqTMI1" target="_blank" class="product-source-link">Source: Pinterest</a>
+                        <div class="product-title" data-i18n="p9">Leather Belt</div>
+                        <div class="product-price">$30.00</div>
+                    </div>
+                    <div class="btn-group-card">
+                        <button class="cart-add-btn" onclick="addToGlobalCart('Leather Belt', 30.00, 'product9.JPG', 'checkout.html')">+ Cart</button>
+                        <a href="checkout9.html" class="buy-btn" data-i18n="buy_now">View</a>
+                    </div>
+                </div>
+
+                <!-- Produk 10 -->
+                <div class="product-card">
+                    <div>
+                        <img src="product10.JPG" alt="Minimalist Dress" class="product-image">
+                        <a href="https://pin.it/3VXaQFsQp" target="_blank" class="product-source-link">Source: Pinterest</a>
+                        <div class="product-title" data-i18n="p10">Minimalist Dress</div>
+                        <div class="product-price">$65.00</div>
+                    </div>
+                    <div class="btn-group-card">
+                        <button class="cart-add-btn" onclick="addToGlobalCart('Minimalist Dress', 65.00, 'product10.JPG', 'checkout.html')">+ Cart</button>
+                        <a href="checkout10.html" class="buy-btn" data-i18n="buy_now">View</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p data-i18n="footer">&copy; 2026 STOCK.HOLM. Designed with elegance.</p>
+        <a href="https://pinterest.com" target="_blank" class="footer-pinterest-link">Photos provided by Pinterest</a>
+    </footer>
+
+    <!-- TOAST NOTIFIKASI -->
+    <div class="toast-notif" id="toastNotif">
+        ✓ Added to your Profile Cart!
+    </div>
+
+    <!-- NOTIFIKASI SAVE PASSWORD -->
+    <div class="pwd-native-toast" id="pwdNativeToast">
+        <div class="pwd-toast-header">
+            <svg viewBox="0 0 24 24"><path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v2h2v-2h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+            <h4>Save password for STOCK.HOLM?</h4>
+        </div>
+        <div class="pwd-toast-body">
+            Account: <span class="pwd-toast-email" id="loggedUserEmail">mclajota@gmail.com</span>
+        </div>
+        <div class="pwd-toast-actions">
+            <button type="button" class="pwd-toast-btn-never" onclick="closePwdToast()">Never</button>
+            <button type="button" class="pwd-toast-btn-save" onclick="closePwdToast()">Save</button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC DENGAN FUNGSI PENYIMPANAN KE LOCALSTORAGE -->
+    <script>
+        const searchParams = new URLSearchParams(window.location.search);
+        const userAccount = searchParams.get('username') || searchParams.get('account') || 'mclajota@gmail.com';
+        document.getElementById('loggedUserEmail').textContent = userAccount;
+
+        function closePwdToast() {
+            document.getElementById('pwdNativeToast').style.display = 'none';
+        }
+
+        // FUNGSI UNTUK MENYIMPAN PRODUK KE KERANJANG PROFILE
+        function addToGlobalCart(name, price, image, checkoutUrl, size = 'M') {
+            let currentCart = [];
+            try {
+                currentCart = JSON.parse(localStorage.getItem('stockholm_cart')) || [];
+            } catch (e) {
+                currentCart = [];
+            }
+
+            // Masukkan produk ke keranjang
+            currentCart.push({
+                name: name,
+                price: price,
+                image: image,
+                size: size,
+                checkoutUrl: checkoutUrl
+            });
+
+            // Simpan ke localStorage
+            localStorage.setItem('stockholm_cart', JSON.stringify(currentCart));
+
+            // Munculkan toast notifikasi
+            const toast = document.getElementById('toastNotif');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        const translations = {
+            en: {
+                subtitle: "Your Daily Dose of Elegant Aesthetics",
+                logout: "Logout",
+                nav_product: "Product", nav_news: "News", nav_new: "New Released", nav_contact: "Contact", nav_profile: "Profile", nav_credit: "Credit",
+                content_title: "Content Area", welcome: "Welcome to STOCK.HOLM", desc: "Discover our curated collection of cozy and elegant apparel.",
+                p1: "Knit Sweater", p2: "Classic Trench", p3: "Linen Trousers", p4: "Cotton Blouse", p5: "Wool Scarf", p6: "Pleated Skirt", p7: "Oversized Blazer", p8: "Ribbed Beanie", p9: "Leather Belt", p10: "Minimalist Dress",
+                buy_now: "Buy Now",
+                footer: "© 2026 STOCK.HOLM. Designed with elegance."
+            },
+            id: {
+                subtitle: "Dosis Estetika Elegan Harian Anda",
+                logout: "Keluar",
+                nav_product: "Produk", nav_news: "Berita", nav_new: "Rilis Terbaru", nav_contact: "Kontak", nav_profile: "Profil", nav_credit: "Kredit",
+                content_title: "Area Konten", welcome: "Selamat Datang di STOCK.HOLM", desc: "Temukan koleksi pakaian yang nyaman dan elegan pilihan kami.",
+                p1: "Baju Hangat Rajut", p2: "Mantel Klasik", p3: "Celana Linen", p4: "Blus Katun", p5: "Syal Wol", p6: "Rok Lipit", p7: "Blazer Oversize", p8: "Kupluk Rajut", p9: "Sabuk Kulit", p10: "Gaun Minimalis",
+                buy_now: "Beli Sekarang",
+                footer: "© 2026 STOCK.HOLM. Dirancang dengan elegan."
+            }
+        };
+
+        function changeLanguage(lang) {
+            localStorage.setItem('stockholm_lang', lang);
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.innerHTML = translations[lang][key];
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

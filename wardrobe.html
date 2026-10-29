@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STOCK.HOLM - Virtual Wardrobe</title>
+    <!-- Font Elegan Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background-color: #fcf9f2; color: #4a3b32; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* HEADER & BANNER */
+        .banner-container {
+            position: relative;
+            text-align: center;
+            color: #ffffff;
+            height: 260px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            overflow: hidden;
+            background-color: #8b6d5c;
+        }
+
+        .banner-img {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; z-index: 0; filter: brightness(0.65);
+        }
+
+        .banner-text {
+            position: relative; z-index: 1; 
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+            padding: 0 20px;
+        }
+
+        .banner-text h1 { font-size: 2.8rem; letter-spacing: 4px; margin-bottom: 6px; }
+        .banner-text p { font-size: 1.1rem; font-style: italic; font-family: 'Playfair Display', serif; }
+
+        /* TOP BAR & NAVIGASI */
+        .top-bar {
+            background-color: #4a3b32; padding: 8px 30px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-left-bar { display: flex; align-items: center; gap: 15px; }
+        .back-profile { color: #f7f3e9; text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: 0.3s; }
+        .back-profile:hover { color: #d1bfae; }
+
+        /* PENGUBAH BAHASA (LANGUAGE SWITCHER 5 BAHASA) */
+        .lang-switcher {
+            background: transparent; border: 1px solid #d1bfae; color: #f7f3e9;
+            padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; cursor: pointer; font-family: 'Poppins', sans-serif;
+        }
+        .lang-switcher option { background: #4a3b32; color: #f7f3e9; }
+
+        .logout-btn {
+            color: #f7f3e9; text-decoration: none; font-size: 0.85rem; font-weight: 500;
+            padding: 5px 14px; border: 1px solid #d1bfae; border-radius: 4px; transition: 0.3s;
+        }
+        .logout-btn:hover { background-color: #d1bfae; color: #4a3b32; }
+
+        nav { background-color: #634b3e; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; }
+        nav a { color: #f7f3e9; text-decoration: none; padding: 14px 20px; font-size: 0.9rem; font-weight: 500; transition: 0.3s; }
+        nav a:hover, nav a.active { background-color: #d1bfae; color: #4a3b32; }
+
+        /* KONTEN UTAMA */
+        .content-area { background-color: #eaddd3; padding: 40px 20px; min-height: 650px; }
+        
+        .wardrobe-container {
+            max-width: 1100px; margin: 0 auto;
+            display: flex; flex-direction: column; gap: 30px;
+        }
+
+        /* BAGIAN MIX & MATCH OUTFIT */
+        .generator-box {
+            background-color: #ffffff; border: 2px solid #a68a7a; border-radius: 8px;
+            padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); text-align: center;
+        }
+
+        .generator-box h2 { font-size: 1.8rem; margin-bottom: 8px; color: #4a3b32; }
+        .generator-box p { font-size: 0.95rem; color: #8b6d5c; margin-bottom: 25px; font-style: italic; }
+
+        .outfit-display-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px; margin-bottom: 25px;
+        }
+
+        .outfit-slot {
+            background-color: #fcf9f2; border: 1px dashed #a68a7a; border-radius: 6px;
+            padding: 15px; text-align: center; min-height: 180px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            position: relative;
+        }
+
+        .outfit-slot h4 {
+            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;
+            color: #8b6d5c; margin-bottom: 10px;
+        }
+
+        .outfit-slot img {
+            width: 100px; height: 100px; object-fit: cover;
+            border-radius: 4px; border: 1px solid #d1bfae; margin-bottom: 5px;
+        }
+
+        .slot-empty { font-size: 0.75rem; color: #a68a7a; font-style: italic; }
+
+        .clear-slot-btn {
+            position: absolute; top: 8px; right: 8px;
+            background: #b23b3b; color: #fff; border: none;
+            width: 20px; height: 20px; border-radius: 50%;
+            font-size: 0.65rem; cursor: pointer; display: none;
+            align-items: center; justify-content: center;
+        }
+
+        .stockholm-btn {
+            background-color: #8b6d5c; color: #f7f3e9; border: none;
+            padding: 12px 28px; border-radius: 4px; font-family: 'Playfair Display', serif;
+            font-size: 1rem; font-weight: bold; cursor: pointer; transition: 0.3s;
+            letter-spacing: 1px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); margin: 5px;
+        }
+        .stockholm-btn:hover { background-color: #634b3e; color: #fff; }
+
+        .ai-btn { background-color: #4a3b32; }
+        .ai-btn:hover { background-color: #2c221c; }
+
+        /* POPUP MODAL AI STYLIST */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(74, 59, 50, 0.7); display: none;
+            justify-content: center; align-items: center; z-index: 1000; padding: 20px;
+        }
+
+        .modal-content {
+            background: #fcf9f2; border: 2px solid #8b6d5c; border-radius: 8px;
+            max-width: 550px; width: 100%; padding: 30px; text-align: left;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); position: relative;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-content h3 { font-size: 1.6rem; color: #4a3b32; margin-bottom: 10px; border-bottom: 1px solid #eaddd3; padding-bottom: 8px; }
+        .ai-text-result { font-size: 0.95rem; color: #4a3b32; line-height: 1.6; margin: 15px 0; white-space: pre-line; }
+        
+        .close-modal-btn {
+            background-color: #8b6d5c; color: #fff; border: none; padding: 8px 20px;
+            border-radius: 4px; font-weight: 600; cursor: pointer; float: right; transition: 0.3s;
+        }
+        .close-modal-btn:hover { background-color: #634b3e; }
+
+        /* BAGIAN KOLEKSI & KATALOG GAMBAR */
+        .collection-section {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .collection-section { grid-template-columns: 1fr; }
+        }
+
+        .panel-box {
+            background-color: #ffffff; border: 2px solid #a68a7a; border-radius: 8px;
+            padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .panel-box h3 {
+            font-size: 1.3rem; margin-bottom: 15px; border-bottom: 1px solid #eaddd3;
+            padding-bottom: 8px; color: #4a3b32;
+        }
+
+        /* FORM TAMBAH ITEM */
+        .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+        .form-group label { font-size: 0.75rem; font-weight: 600; color: #8b6d5c; text-transform: uppercase; }
+        .form-group input, .form-group select {
+            padding: 8px 12px; background-color: #fcf9f2; border: 1px solid #eaddd3;
+            border-radius: 4px; font-family: 'Poppins', sans-serif; font-size: 0.85rem; color: #4a3b32; outline: none;
+        }
+        .add-item-btn {
+            background-color: #634b3e; color: #f7f3e9; border: none; padding: 10px;
+            width: 100%; border-radius: 4px; font-weight: 600; cursor: pointer; transition: 0.3s; margin-top: 5px;
+        }
+        .add-item-btn:hover { background-color: #8b6d5c; }
+
+        /* KATALOG GAMBAR */
+        .catalog-container {
+            display: flex; flex-direction: column; gap: 15px; max-height: 420px; overflow-y: auto; padding-right: 5px;
+        }
+
+        .catalog-category-title {
+            font-size: 0.85rem; font-weight: 600; color: #8b6d5c; text-transform: uppercase; border-bottom: 1px dashed #eaddd3; padding-bottom: 4px; margin-top: 5px;
+        }
+
+        .catalog-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 10px;
+        }
+
+        .catalog-item-card {
+            background-color: #fcf9f2; border: 1px solid #eaddd3; border-radius: 6px;
+            padding: 6px; text-align: center; cursor: pointer; transition: 0.2s; position: relative;
+        }
+        .catalog-item-card:hover {
+            border-color: #8b6d5c; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+        }
+
+        .catalog-item-card img {
+            width: 100%; height: 75px; object-fit: cover; border-radius: 4px; margin-bottom: 4px;
+        }
+
+        .catalog-item-card p {
+            font-size: 0.7rem; color: #4a3b32; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+
+        .delete-catalog-btn {
+            position: absolute; top: 3px; right: 3px; background: rgba(178, 59, 59, 0.85);
+            color: white; border: none; width: 16px; height: 16px; border-radius: 50%;
+            font-size: 0.6rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+        }
+
+        footer { background-color: #4a3b32; color: #eaddd3; text-align: center; padding: 22px; font-size: 0.9rem; margin-top: 40px; }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER BANNER -->
+    <header class="banner-container">
+        <img src="download.JPG" alt="STOCK.HOLM Banner" class="banner-img">
+        <div class="banner-text">
+            <h1 data-translate="bannerTitle">VIRTUAL WARDROBE</h1>
+            <p data-translate="bannerSub">Nordic Minimalist & Stockholm Street Style</p>
+        </div>
+    </header>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="nav-left-bar">
+            <a href="profile.html" class="back-profile" data-translate="backProfile">&larr; Back to Profile</a>
+            <select id="langSelect" class="lang-switcher" onchange="changeLanguage(this.value)">
+                <option value="en" selected>🇬🇧 English</option>
+                <option value="id">🇮🇩 Indonesia</option>
+                <option value="fr">🇫🇷 Français</option>
+                <option value="de">🇩🇪 Deutsch</option>
+                <option value="pt">🇵🇹 Português</option>
+            </select>
+        </div>
+        <a href="login.html" class="logout-btn" data-translate="logoutBtn">Logout</a>
+    </div>
+
+    <!-- NAVIGASI -->
+    <nav>
+        <a href="index.html" data-translate="navProduct">Product</a>
+        <a href="news.html" data-translate="navNews">News</a>
+        <a href="new-released.html" data-translate="navNewReleased">New Released</a>
+        <a href="contact.html" data-translate="navContact">Contact</a>
+        <a href="profile.html" data-translate="navProfile">Profile</a>
+        <a href="credit.html" data-translate="navCredit">Credit</a>
+    </nav>
+
+    <!-- KONTEN UTAMA -->
+    <main class="content-area">
+        <div class="wardrobe-container">
+            
+            <!-- BAGIAN OUTFIT GENERATOR (VISUAL SLOT) -->
+            <div class="generator-box">
+                <h2 data-translate="genTitle">✨ Stockholm Outfit Coordinator ✨</h2>
+                <p data-translate="genDesc">Click items from your inventory below or use AI Stylist to generate a curated look analysis.</p>
+                
+                <div class="outfit-display-grid">
+                    <!-- Slot Top -->
+                    <div class="outfit-slot" id="slot-top">
+                        <h4 data-translate="slotTop">Top / Outerwear</h4>
+                        <span class="slot-empty" data-translate="emptySlot">No Item Selected</span>
+                        <button class="clear-slot-btn" onclick="clearSlot('top')">×</button>
+                    </div>
+
+                    <!-- Slot Bottom -->
+                    <div class="outfit-slot" id="slot-bottom">
+                        <h4 data-translate="slotBottom">Bottom / Trousers</h4>
+                        <span class="slot-empty" data-translate="emptySlot">No Item Selected</span>
+                        <button class="clear-slot-btn" onclick="clearSlot('bottom')">×</button>
+                    </div>
+
+                    <!-- Slot Shoes -->
+                    <div class="outfit-slot" id="slot-shoes">
+                        <h4 data-translate="slotShoes">Footwear</h4>
+                        <span class="slot-empty" data-translate="emptySlot">No Item Selected</span>
+                        <button class="clear-slot-btn" onclick="clearSlot('shoes')">×</button>
+                    </div>
+
+                    <!-- Slot Accessory -->
+                    <div class="outfit-slot" id="slot-accessory">
+                        <h4 data-translate="slotAccessory">Accessory (Jedai/Bag)</h4>
+                        <span class="slot-empty" data-translate="emptySlot">No Item Selected</span>
+                        <button class="clear-slot-btn" onclick="clearSlot('accessory')">×</button>
+                    </div>
+                </div>
+
+                <div>
+                    <button class="stockholm-btn" onclick="randomizeOutfit()" data-translate="btnShuffle">🎲 Shuffle Look</button>
+                    <button class="stockholm-btn ai-btn" onclick="aiGenerateStylistReview()" data-translate="btnAi">✨ AI Stockholm Stylist Review</button>
+                </div>
+            </div>
+
+            <!-- POPUP MODAL AI STYLIST -->
+            <div id="ai-modal" class="modal-overlay">
+                <div class="modal-content">
+                    <h3 data-translate="modalTitle">✨ AI Stockholm Stylist Analysis</h3>
+                    <div id="ai-loading" style="font-style: italic; color: #8b6d5c; margin: 20px 0;" data-translate="aiLoading">Analyzing your selected layers and aesthetic harmony...</div>
+                    <p id="ai-result-text" class="ai-text-result" style="display: none;"></p>
+                    <button class="close-modal-btn" onclick="closeAiModal()" data-translate="btnClose">Close</button>
+                </div>
+            </div>
+
+            <!-- BAGIAN KELOLA LEMARI & KATALOG GAMBAR -->
+            <div class="collection-section">
+                
+                <!-- Katalog Gambar Interaktif -->
+                <div class="panel-box">
+                    <h3 data-translate="catalogTitle">My Wardrobe Catalog (Click to Wear)</h3>
+                    <div id="catalog-container" class="catalog-container"></div>
+                </div>
+
+                <!-- Form Tambah Item Baru -->
+                <div class="panel-box">
+                    <h3 data-translate="addTitle">Add New Item to Closet</h3>
+                    <form id="add-wardrobe-form" onsubmit="addNewWardrobeItem(event)">
+                        <div class="form-group">
+                            <label data-translate="labelName">Item Name</label>
+                            <input type="text" id="item-name" placeholder="e.g. Camel Wool Coat" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label data-translate="labelCategory">Category</label>
+                            <select id="item-category" required>
+                                <option value="top" data-translate="optTop">Top / Outerwear</option>
+                                <option value="bottom" data-translate="optBottom">Bottom / Trousers</option>
+                                <option value="shoes" data-translate="optShoes">Footwear</option>
+                                <option value="accessory" data-translate="optAccessory">Accessory (Jedai/Bag/Glasses)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label data-translate="labelImage">Image File / Upload</label>
+                            <input type="file" id="item-image-file" accept="image/*" onchange="convertImageToBase64(event)">
+                            <input type="hidden" id="item-image-base64">
+                        </div>
+
+                        <button type="submit" class="add-item-btn" data-translate="btnAdd">Add to Closet</button>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p data-translate="footerText">&copy; 2026 STOCK.HOLM Virtual Wardrobe. Nordic Minimalist Style.</p>
+    </footer>
+
+    <!-- JAVASCRIPT KONTROL VIRTUAL WARDROBE & 5 BAHASA -->
+    <script>
+        // Kamus 5 Bahasa (EN sebagai default, ID, FR, DE, PT)
+        const translations = {
+            en: {
+                bannerTitle: "VIRTUAL WARDROBE",
+                bannerSub: "Nordic Minimalist & Stockholm Street Style",
+                backProfile: "&larr; Back to Profile",
+                logoutBtn: "Logout",
+                navProduct: "Product",
+                navNews: "News",
+                navNewReleased: "New Released",
+                navContact: "Contact",
+                navProfile: "Profile",
+                navCredit: "Credit",
+                genTitle: "✨ Stockholm Outfit Coordinator ✨",
+                genDesc: "Click items from your inventory below or use AI Stylist to generate a curated look analysis.",
+                slotTop: "Top / Outerwear",
+                slotBottom: "Bottom / Trousers",
+                slotShoes: "Footwear",
+                slotAccessory: "Accessory (Jedai/Bag)",
+                emptySlot: "No Item Selected",
+                btnShuffle: "🎲 Shuffle Look",
+                btnAi: "✨ AI Stockholm Stylist Review",
+                modalTitle: "✨ AI Stockholm Stylist Analysis",
+                aiLoading: "Analyzing your selected layers and aesthetic harmony...",
+                btnClose: "Close",
+                catalogTitle: "My Wardrobe Catalog (Click to Wear)",
+                addTitle: "Add New Item to Closet",
+                labelName: "Item Name",
+                labelCategory: "Category",
+                optTop: "Top / Outerwear",
+                optBottom: "Bottom / Trousers",
+                optShoes: "Footwear",
+                optAccessory: "Accessory (Jedai/Bag/Glasses)",
+                labelImage: "Image File / Upload",
+                btnAdd: "Add to Closet",
+                footerText: "&copy; 2026 STOCK.HOLM Virtual Wardrobe. Nordic Minimalist Style."
+            },
+            id: {
+                bannerTitle: "LEMARI VIRTUAL",
+                bannerSub: "Gaya Minimalis Nordik & Stockholm Street Style",
+                backProfile: "← Kembali ke Profil",
+                logoutBtn: "Keluar",
+                navProduct: "Produk",
+                navNews: "Berita",
+                navNewReleased: "Rilis Baru",
+                navContact: "Kontak",
+                navProfile: "Profil",
+                navCredit: "Kredit",
+                genTitle: "✨ Koordinator Outfit Stockholm ✨",
+                genDesc: "Klik item dari inventaris di bawah atau gunakan AI Stylist untuk merakit dan menganalisis gaya Anda.",
+                slotTop: "Atasan / Outerwear",
+                slotBottom: "Bawahan / Celana",
+                slotShoes: "Alas Kaki",
+                slotAccessory: "Aksesori (Jedai/Tas)",
+                emptySlot: "Belum Dipilih",
+                btnShuffle: "🎲 Acak Gaya",
+                btnAi: "✨ Ulasan AI Stockholm Stylist",
+                modalTitle: "✨ Analisis AI Stockholm Stylist",
+                aiLoading: "Sedang menganalisis lapisan dan keselarasan estetika gaya Anda...",
+                btnClose: "Tutup",
+                catalogTitle: "Katalog Lemari Saya (Klik untuk Memakai)",
+                addTitle: "Tambah Item Baru ke Lemari",
+                labelName: "Nama Item",
+                labelCategory: "Kategori",
+                optTop: "Atasan / Outerwear",
+                optBottom: "Bawahan / Celana",
+                optShoes: "Alas Kaki",
+                optAccessory: "Aksesori (Jedai/Tas/Kacamata)",
+                labelImage: "Unggah File Gambar",
+                btnAdd: "Masukkan ke Lemari",
+                footerText: "&copy; 2026 STOCK.HOLM Virtual Wardrobe. Gaya Minimalis Skandinavia."
+            },
+            fr: {
+                bannerTitle: "GARDE-ROBE VIRTUELLE",
+                bannerSub: "Style Minimaliste Nordique & Stockholm Street Style",
+                backProfile: "&larr; Retour au Profil",
+                logoutBtn: "Déconnexion",
+                navProduct: "Produit",
+                navNews: "Actualités",
+                navNewReleased: "Nouveautés",
+                navContact: "Contact",
+                navProfile: "Profil",
+                navCredit: "Crédit",
+                genTitle: "✨ Coordinateur de Tenues Stockholm ✨",
+                genDesc: "Cliquez sur les articles ci-dessous ou utilisez le Styliste IA pour générer une analyse de look.",
+                slotTop: "Haut / Vêtement d'extérieur",
+                slotBottom: "Bas / Pantalon",
+                slotShoes: "Chaussures",
+                slotAccessory: "Accessoire (Pince/Sac)",
+                emptySlot: "Aucun article sélectionné",
+                btnShuffle: "🎲 Mélanger le look",
+                btnAi: "✨ Avis du Styliste IA Stockholm",
+                modalTitle: "✨ Analyse du Styliste IA Stockholm",
+                aiLoading: "Analyse de vos couches sélectionnées et de l'harmonie esthétique...",
+                btnClose: "Fermer",
+                catalogTitle: "Mon Catalogue de Garde-robe (Cliquez pour porter)",
+                addTitle: "Ajouter un nouvel article",
+                labelName: "Nom de l'article",
+                labelCategory: "Catégorie",
+                optTop: "Haut / Vêtement d'extérieur",
+                optBottom: "Bas / Pantalon",
+                optShoes: "Chaussures",
+                optAccessory: "Accessoire (Pince/Sac/Lunettes)",
+                labelImage: "Fichier Image / Télécharger",
+                btnAdd: "Ajouter au placard",
+                footerText: "&copy; 2026 STOCK.HOLM Virtual Wardrobe. Style Minimaliste Nordique."
+            },
+            de: {
+                bannerTitle: "VIRTUELLE GARDEROBE",
+                bannerSub: "Nordischer Minimalismus & Stockholm Street Style",
+                backProfile: "&larr; Zurück zum Profil",
+                logoutBtn: "Abmelden",
+                navProduct: "Produkt",
+                navNews: "Nachrichten",
+                navNewReleased: "Neuerscheinungen",
+                navContact: "Kontakt",
+                navProfile: "Profil",
+                navCredit: "Impressum",
+                genTitle: "✨ Stockholm Outfit-Koordinator ✨",
+                genDesc: "Klicken Sie unten auf Artikel oder nutzen Sie den KI-Stylisten für eine Look-Analyse.",
+                slotTop: "Oberteil / Jacke",
+                slotBottom: "Hose",
+                slotShoes: "Schuhe",
+                slotAccessory: "Accessoire (Klammer/Tasche)",
+                emptySlot: "Kein Artikel ausgewählt",
+                btnShuffle: "🎲 Look mischen",
+                btnAi: "✨ KI Stockholm Stylisten-Review",
+                modalTitle: "✨ KI Stockholm Stylisten-Analyse",
+                aiLoading: "Analysiere Ihre ausgewählten Schichten und ästhetische Harmonie...",
+                btnClose: "Schließen",
+                catalogTitle: "Mein Kleiderschrank-Katalog (Zum Tragen klicken)",
+                addTitle: "Neuen Artikel hinzufügen",
+                labelName: "Artikelname",
+                labelCategory: "Kategorie",
+                optTop: "Oberteil / Jacke",
+                optBottom: "Hose",
+                optShoes: "Schuhe",
+                optAccessory: "Accessoire (Klammer/Tasche/Brille)",
+                labelImage: "Bilddatei / Hochladen",
+                btnAdd: "In den Schrank",
+                footerText: "&copy; 2026 STOCK.HOLM Virtual Wardrobe. Nordischer Minimalismus."
+            },
+            pt: {
+                bannerTitle: "GUARDA-ROUPA VIRTUAL",
+                bannerSub: "Estilo Minimalista Nórdico & Stockholm Street Style",
+                backProfile: "&larr; Voltar ao Perfil",
+                logoutBtn: "Sair",
+                navProduct: "Produto",
+                navNews: "Notícias",
+                navNewReleased: "Lançamentos",
+                navContact: "Contato",
+                navProfile: "Perfil",
+                navCredit: "Crédito",
+                genTitle: "✨ Coordenador de Looks Stockholm ✨",
+                genDesc: "Clique em itens do seu inventário abaixo ou use o Stylist IA para gerar uma análise do visual.",
+                slotTop: "Parte Superior / Casaco",
+                slotBottom: "Calças / Parte Inferior",
+                slotShoes: "Calçado",
+                slotAccessory: "Acessório (Pregador/Bolsa)",
+                emptySlot: "Nenhum item selecionado",
+                btnShuffle: "🎲 Sortear Look",
+                btnAi: "✨ Revisão do Estilista IA Stockholm",
+                modalTitle: "✨ Análise do Estilista IA Stockholm",
+                aiLoading: "Analisando suas camadas selecionadas e harmonia estética...",
+                btnClose: "Fechar",
+                catalogTitle: "Meu Catálogo de Guarda-Roupa (Clique para usar)",
+                addTitle: "Adicionar Novo Item ao Closet",
+                labelName: "Nome do Item",
+                labelCategory: "Categoria",
+                optTop: "Parte Superior / Casaco",
+                optBottom: "Calças / Parte Inferior",
+                optShoes: "Calçado",
+                optAccessory: "Acessório (Pregador/Bolsa/Óculos)",
+                labelImage: "Arquivo de Imagem / Enviar",
+                btnAdd: "Adicionar ao Closet",
+                footerText: "&copy; 2026 STOCK.HOLM Virtual Wardrobe. Estilo Minimalista Nórdico."
+            }
+        };
+
+        let currentLang = 'en';
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            
+            document.querySelectorAll('[data-translate]').forEach(el => {
+                const key = el.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+
+            renderCatalog();
+            updateOutfitDisplay();
+        }
+
+        // Koleksi Default Item Lemari
+        let wardrobeItems = JSON.parse(localStorage.getItem('user_wardrobe_items')) || [
+            { id: 1, name: 'Camel Oversized Wool Coat', category: 'top', image: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=300' },
+            { id: 2, name: 'Stockholm Black Turtleneck', category: 'top', image: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=300' },
+            { id: 3, name: 'Tailored Beige Trousers', category: 'bottom', image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=300' },
+            { id: 4, name: 'Classic Leather Loafers', category: 'shoes', image: 'https://images.unsplash.com/photo-1533867617858-e7d97e0afd8b?w=300' },
+            { id: 5, name: 'Minimalist Hair Claw Clip / Jedai', category: 'accessory', image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=300' }
+        ];
+
+        let currentOutfit = { top: null, bottom: null, shoes: null, accessory: null };
+        let uploadedImageTemp = "";
+
+        window.addEventListener('DOMContentLoaded', () => {
+            changeLanguage('en');
+        });
+
+        function convertImageToBase64(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedImageTemp = e.target.result;
+                    document.getElementById('item-image-base64').value = uploadedImageTemp;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function addNewWardrobeItem(event) {
+            event.preventDefault();
+            const name = document.getElementById('item-name').value;
+            const category = document.getElementById('item-category').value;
+            const image = uploadedImageTemp || 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=300';
+
+            wardrobeItems.push({ id: Date.now(), name, category, image });
+            saveAndRefresh();
+
+            document.getElementById('add-wardrobe-form').reset();
+            uploadedImageTemp = "";
+            document.getElementById('item-image-base64').value = "";
+        }
+
+        function deleteCatalogItem(id, event) {
+            event.stopPropagation();
+            wardrobeItems = wardrobeItems.filter(item => item.id !== id);
+            for (let cat in currentOutfit) {
+                if (currentOutfit[cat] && currentOutfit[cat].id === id) currentOutfit[cat] = null;
+            }
+            saveAndRefresh();
+        }
+
+        function saveAndRefresh() {
+            localStorage.setItem('user_wardrobe_items', JSON.stringify(wardrobeItems));
+            renderCatalog();
+            updateOutfitDisplay();
+        }
+
+        function renderCatalog() {
+            const container = document.getElementById('catalog-container');
+            container.innerHTML = '';
+
+            const catLabels = {
+                en: { top: 'Tops / Outerwear', bottom: 'Bottoms / Trousers', shoes: 'Footwear', accessory: 'Accessories (Jedai & Bags)' },
+                id: { top: 'Atasan / Outerwear', bottom: 'Bawahan / Celana', shoes: 'Alas Kaki', accessory: 'Aksesori (Jedai & Tas)' },
+                fr: { top: 'Hauts / Vêtements d\'extérieur', bottom: 'Bas / Pantalons', shoes: 'Chaussures', accessory: 'Accessoires (Pince & Sacs)' },
+                de: { top: 'Oberteile / Jacken', bottom: 'Hosen', shoes: 'Schuhe', accessory: 'Accessoires (Klammer & Taschen)' },
+                pt: { top: 'Partes Superiores / Casacos', bottom: 'Calças / Partes Inferiores', shoes: 'Calçado', accessory: 'Acessórios (Pregador & Bolsas)' }
+            };
+
+            const categories = [
+                { key: 'top', label: catLabels[currentLang].top },
+                { key: 'bottom', label: catLabels[currentLang].bottom },
+                { key: 'shoes', label: catLabels[currentLang].shoes },
+                { key: 'accessory', label: catLabels[currentLang].accessory }
+            ];
+
+            categories.forEach(cat => {
+                const itemsInCat = wardrobeItems.filter(i => i.category === cat.key);
+                const title = document.createElement('div');
+                title.className = 'catalog-category-title';
+                title.textContent = cat.label;
+                container.appendChild(title);
+
+                const grid = document.createElement('div');
+                grid.className = 'catalog-grid';
+
+                if (itemsInCat.length === 0) {
+                    const emptyMsg = document.createElement('p');
+                    emptyMsg.style.cssText = 'font-size:0.75rem; color:#a68a7a; grid-column:1/-1;';
+                    emptyMsg.textContent = translations[currentLang].emptySlot;
+                    grid.appendChild(emptyMsg);
+                } else {
+                    itemsInCat.forEach(item => {
+                        const card = document.createElement('div');
+                        card.className = 'catalog-item-card';
+                        card.onclick = () => { currentOutfit[item.category] = item; updateOutfitDisplay(); };
+                        card.innerHTML = `
+                            <button class="delete-catalog-btn" onclick="deleteCatalogItem(${item.id}, event)">×</button>
+                            <img src="${item.image}" alt="${item.name}">
+                            <p title="${item.name}">${item.name}</p>
+                        `;
+                        grid.appendChild(card);
+                    });
+                }
+                container.appendChild(grid);
+            });
+        }
+
+        function clearSlot(category) {
+            currentOutfit[category] = null;
+            updateOutfitDisplay();
+        }
+
+        function updateOutfitDisplay() {
+            const slotTitles = {
+                en: { top: 'TOP', bottom: 'BOTTOM', shoes: 'SHOES', accessory: 'ACCESSORY' },
+                id: { top: 'ATASAN', bottom: 'BAWAHAN', shoes: 'ALAS KAKI', accessory: 'AKSESORI' },
+                fr: { top: 'HAUT', bottom: 'BAS', shoes: 'CHAUSSURES', accessory: 'ACCESSOIRE' },
+                de: { top: 'OBERTEIL', bottom: 'HOSE', shoes: 'SCHUHE', accessory: 'ACCESSOIRE' },
+                pt: { top: 'PARTE SUP.', bottom: 'PARTE INF.', shoes: 'CALÇADO', accessory: 'ACESSÓRIO' }
+            };
+
+            ['top', 'bottom', 'shoes', 'accessory'].forEach(slot => {
+                const slotEl = document.getElementById(`slot-${slot}`);
+                const item = currentOutfit[slot];
+                const titleName = slotTitles[currentLang][slot];
+                const emptyText = translations[currentLang].emptySlot;
+
+                if (item) {
+                    slotEl.innerHTML = `
+                        <h4>${titleName}</h4>
+                        <img src="${item.image}" alt="${item.name}">
+                        <span style="font-size:0.7rem; color:#4a3b32; font-weight:500;">${item.name}</span>
+                        <button class="clear-slot-btn" style="display:flex;" onclick="clearSlot('${slot}')">×</button>
+                    `;
+                } else {
+                    slotEl.innerHTML = `
+                        <h4>${titleName}</h4>
+                        <span class="slot-empty">${emptyText}</span>
+                        <button class="clear-slot-btn" onclick="clearSlot('${slot}')">×</button>
+                    `;
+                }
+            });
+        }
+
+        function randomizeOutfit() {
+            const tops = wardrobeItems.filter(i => i.category === 'top');
+            const bottoms = wardrobeItems.filter(i => i.category === 'bottom');
+            const shoes = wardrobeItems.filter(i => i.category === 'shoes');
+            const accessories = wardrobeItems.filter(i => i.category === 'accessory');
+
+            if (tops.length) currentOutfit.top = tops[Math.floor(Math.random() * tops.length)];
+            if (bottoms.length) currentOutfit.bottom = bottoms[Math.floor(Math.random() * bottoms.length)];
+            if (shoes.length) currentOutfit.shoes = shoes[Math.floor(Math.random() * shoes.length)];
+            if (accessories.length) currentOutfit.accessory = accessories[Math.floor(Math.random() * accessories.length)];
+
+            updateOutfitDisplay();
+        }
+
+        // Fitur AI Stylist Text Generator Multi-Bahasa Otomatis Berdasarkan Bahasa Terpilih
+        function aiGenerateStylistReview() {
+            const modal = document.getElementById('ai-modal');
+            const loading = document.getElementById('ai-loading');
+            const resultText = document.getElementById('ai-result-text');
+
+            modal.style.display = 'flex';
+            loading.style.display = 'block';
+            resultText.style.display = 'none';
+
+            if (!currentOutfit.top && !currentOutfit.bottom) {
+                randomizeOutfit();
+            }
+
+            setTimeout(() => {
+                const topName = currentOutfit.top ? currentOutfit.top.name : 'Top';
+                const bottomName = currentOutfit.bottom ? currentOutfit.bottom.name : 'Bottom';
+                const shoesName = currentOutfit.shoes ? currentOutfit.shoes.name : 'Shoes';
+                const accName = currentOutfit.accessory ? currentOutfit.accessory.name : 'Accessory';
+
+                let review = "";
+
+                if (currentLang === 'en') {
+                    review = `🇸🇪 **Stockholm Minimalist Style Review:**\n` +
+                        `The combination of **${topName}** and **${bottomName}** exudes a clean, elegant, and functional Scandinavian aesthetic.\n\n` +
+                        `👟 **Proportions & Balance:**\n` +
+                        `Styling with **${shoesName}** provides a comfortable yet polished urban silhouette.\n\n` +
+                        `✨ **Finishing Touch:**\n` +
+                        `Adding **${accName}** completes the signature Stockholm street style look.\n\n` +
+                        `*Stylist Verdict:* Perfect for café hopping or crisp city weather! ☕✨`;
+                } else if (currentLang === 'id') {
+                    review = `🇸🇪 **Ulasan Gaya Stockholm Minimalis:**\n` +
+                        `Kombinasi antara **${topName}** dan **${bottomName}** ini memancarkan kesan estetika Skandinavia yang bersih, elegan, dan fungsional.\n\n` +
+                        `👟 **Proporsi & Keseimbangan:**\n` +
+                        `Penggunaan **${shoesName}** memberikan fondasi siluet urban yang sangat nyaman namun tetap rapi.\n\n` +
+                        `✨ **Sentuhan Akhir:**\n` +
+                        `Kehadiran **${accName}** menyempurnakan keseluruhan tampilan khas Stockholm street style.\n\n` +
+                        `*Keputusan Stylist:* Sempurna untuk berjalan-jalan di kafe maupun cuaca sejuk kota! ☕✨`;
+                } else if (currentLang === 'fr') {
+                    review = `🇸🇪 **Revue du Style Minimaliste de Stockholm :**\n` +
+                        `L'association de **${topName}** et de **${bottomName}** dégage une esthétique scandinave épurée, élégante et fonctionnelle.\n\n` +
+                        `👟 **Proportions & Équilibre :**\n` +
+                        `L'utilisation de **${shoesName}** offre une silhouette urbaine confortable et soignée.\n\n` +
+                        `✨ **Touche Finale :**\n` +
+                        `La présence de **${accName}** parachève ce look emblématique du style urbain de Stockholm.\n\n` +
+                        `*Avis du Styliste :* Parfait pour flâner dans les cafés ou par temps frais ! ☕✨`;
+                } else if (currentLang === 'de') {
+                    review = `🇸🇪 **Stockholm Minimalistischer Stil-Check:**\n` +
+                        `Die Kombination aus **${topName}** und **${bottomName}** strahlt eine saubere, elegante und funktionale skandinavische Ästhetik aus.\n\n` +
+                        `👟 **Proportionen & Balance:**\n` +
+                        `Das Styling mit **${shoesName}** sorgt für eine bequeme und dennoch gepflegte urbane Silhouette.\n\n` +
+                        `✨ **Der letzte Schliff:**\n` +
+                        `Das Hinzufügen von **${accName}** vervollständigt den typischen Stockholm-Street-Style-Look.\n\n` +
+                        `*Stylisten-Urteil:* Perfekt für Café-Besuche oder frisches Stadtwetter! ☕✨`;
+                } else if (currentLang === 'pt') {
+                    review = `🇸🇪 **Revisão do Estilo Minimalista de Estocolmo:**\n` +
+                        `A combinação de **${topName}** e **${bottomName}** exala uma estética escandinava limpa, elegante e funcional.\n\n` +
+                        `👟 **Proporções & Equilíbrio:**\n` +
+                        `O uso de **${shoesName}** proporciona uma silhueta urbana confortável e polida.\n\n` +
+                        `✨ **Toque Final:**\n` +
+                        `Adicionar **${accName}** completa o visual icônico do estilo de rua de Estocolmo.\n\n` +
+                        `*Veredito do Estilista:* Perfeito para um café ou para o clima fresco da cidade! ☕✨`;
+                }
+
+                loading.style.display = 'none';
+                resultText.textContent = review;
+                resultText.style.display = 'block';
+            }, 1000);
+        }
+
+        function closeAiModal() {
+            document.getElementById('ai-modal').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
